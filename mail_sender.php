@@ -31,7 +31,7 @@ function sendEmail($recipientEmail, $recipientName, $productName, $productQuanti
                             <li><strong>Product Name:</strong> $productName</li>
                             <li><strong>Quantity:</strong> $productQuantity</li>
                         </ul>
-                        <p>Please confirm the availability of the product by filling out the form at <a href=\"$saleFormUrl\">this link</a>.</p>
+                        <p>Please confirm the availability of the product.</p>
                         <p>Thank you for your cooperation.</p>
                         <p>Best regards,</p>
                         <p>Inventory System</p>";

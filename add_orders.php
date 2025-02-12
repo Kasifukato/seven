@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- Display Success Message after Redirect -->
 <?php
 if (isset($_GET['status']) && $_GET['status'] == 'success') {
-    echo "<p>Order added successfully! Order ID: " . htmlspecialchars($_GET['order_id']) . "</p>";
+    echo "<p>Order added successfully!" . htmlspecialchars($_GET['order_id']) . "</p>";
 }
 ?>
 
