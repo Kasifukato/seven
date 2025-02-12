@@ -8,11 +8,18 @@
 ?>
 <?php
 if (isset($_POST['add_cat'])) {
-    $req_field = array('categorie-name', 'threshold');  // Add threshold to required fields
+    $req_field = array('categorie-name', 'threshold');
     validate_fields($req_field);
 
     $cat_name = remove_junk($db->escape($_POST['categorie-name']));
-    $threshold = (int)$_POST['threshold'];  // Retrieve threshold value
+    $threshold = remove_junk($db->escape($_POST['threshold']));
+
+    // Validate threshold is a non-negative integer
+    if (!ctype_digit($threshold) && $threshold !== '0') {
+        $session->msg("d", "Threshold must be zero or a positive whole number.");
+        redirect('categorie.php', false);
+        exit;
+    }
 
     // Get current date and time
     $current_date = date('Y-m-d H:i:s');
@@ -33,7 +40,6 @@ if (isset($_POST['add_cat'])) {
         redirect('categorie.php', false);
     }
 }
-
 ?>
 <?php include_once('layouts/header.php'); ?>
      <div class="col-md-12">
@@ -74,8 +80,16 @@ if (isset($_POST['add_cat'])) {
 												<div class="form__module">
 													<label for="threshold" class="form__label">Threshold Value</label>
 													<div class="form__set">
-														<input type="number" id="threshold" name="threshold" placeholder="Threshold Value" required>
-
+														<input 
+                              type="number" 
+                              id="threshold" 
+                              name="threshold" 
+                              placeholder="Threshold Value" 
+                              min="0" 
+                              step="1"
+                              onkeydown="return event.keyCode !== 190"
+                              oninput="this.value = Math.abs(this.value.replace(/[^\d]/g, ''))"
+                              required>
 													</div>
 												</div>
 											</div>

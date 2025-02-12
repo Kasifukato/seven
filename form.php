@@ -17,7 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $order_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         
         // Validate inputs
-        if (empty($sent_quantity) || empty($order_id)) {
+        if (empty($sent_quantity) || !is_numeric($sent_quantity) || $sent_quantity < 0 || floor($sent_quantity) != $sent_quantity) {
+            $session->msg('d', 'Sent quantity must be a non-negative whole number.');
+            redirect("form.php?id=$order_id");
+            exit;
+        }
+
+        if (empty($order_id)) {
             $session->msg('d', 'Please fill all required fields.');
             redirect("form.php?id=$order_id");
             exit;
@@ -63,6 +69,17 @@ $result = $db->query($query);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+        }
+        input:invalid {
+            border-color: red;
+        }
+    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -141,10 +158,18 @@ $result = $db->query($query);
                                         <span>Sent Quantity</span>
                                     </div>
                                     <div class="col xs-12 sm-2">
-                                        <form class="general--form access__form login__form" method="post" action="form.php?id=<?php echo $_GET['id']; ?>">
+                                        <form class="general--form access__form login__form" method="post" action="form.php?id=<?php echo $_GET['id']; ?>" onsubmit="return validateForm()">
                                             <div class="form__module">
                                                 <div class="form__set">
-                                                    <input type="tel" id="sent_quantity" name="sent_quantity" required>
+                                                    <input type="number" 
+                                                           id="sent_quantity" 
+                                                           name="sent_quantity" 
+                                                           min="0" 
+                                                           step="1" 
+                                                           required 
+                                                           oninput="validateInput(this)"
+                                                           onkeypress="return preventNonNumericInput(event)">
+                                                    <div id="error-message" class="error-message"></div>
                                                     <input type="hidden" name="order_id" value="<?php echo $_GET['id']; ?>">
                                                 </div>
                                             </div>  
@@ -163,5 +188,57 @@ $result = $db->query($query);
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="test.js"></script>
+    <script>
+        function validateInput(input) {
+            const errorMessage = document.getElementById('error-message');
+            const value = input.value;
+
+            // Remove any decimal points and non-numeric characters
+            input.value = input.value.replace(/[^0-9]/g, '');
+
+            if (value === '') {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Please enter a quantity';
+                return false;
+            }
+
+            if (value < 0) {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Quantity cannot be negative';
+                return false;
+            }
+
+            if (!Number.isInteger(Number(value))) {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Quantity must be a whole number';
+                return false;
+            }
+
+            errorMessage.style.display = 'none';
+            return true;
+        }
+
+        function preventNonNumericInput(event) {
+            // Prevent: decimal point, negative sign, plus sign, and 'e'
+            if (event.key === '.' || event.key === '-' || event.key === '+' || event.key === 'e') {
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        }
+
+        function validateForm() {
+            const input = document.getElementById('sent_quantity');
+            return validateInput(input);
+        }
+
+        // Initial validation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('sent_quantity');
+            input.addEventListener('input', function() {
+                validateInput(this);
+            });
+        });
+    </script>
 </body>
 </html>
