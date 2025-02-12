@@ -64,6 +64,10 @@ if (empty($errors)) {
     // Redirect Based on Role
     if ($db_role == "Supplier") {
         redirect('sdashboard.php', false);
+    } elseif ($db_role == "Special") {
+        redirect('special_dashboard.php', false);
+    } elseif ($db_role == "User") {
+        redirect('user_dashboard.php', false);
     } else {
         redirect('admin.php', false);
     }

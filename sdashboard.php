@@ -40,10 +40,7 @@ $pending_query = "SELECT COUNT(*) AS pending_count FROM orders WHERE supplier_id
 $pending_result = $db->query($pending_query);
 $pending_count = ($pending_result) ? $pending_result->fetch_assoc()['pending_count'] : 0;
 
-// Fetch Supplied Orders Count
-$supplied_query = "SELECT COUNT(*) AS supplied_count FROM orders WHERE supplier_id = {$supplier_id} AND status = 'Supplied'";
-$supplied_result = $db->query($supplied_query);
-$supplied_count = ($supplied_result) ? $supplied_result->fetch_assoc()['supplied_count'] : 0;
+
 
 // Fetch Recent Orders
 $recent_orders_query = "
@@ -97,24 +94,7 @@ include_once('layouts/header.php');
                         </div>
                     </div>
                 </div>
-
-                <!-- Supplied Orders -->
-                <div class="col xs-12 sm-3">
-                    <div class="panel">
-                        <div class="income">
-                            <div class="middle">
-                                <div class="left">
-                                    <h3>Supplied</h3>
-                                    <h1><?php echo $supplied_count; ?></h1>
-                                </div>
-                                <div class="progress">
-                                    <span class="icon-order"></span>
-                                </div>
-                            </div>
-                            <small class="text-muted">Total supplied orders</small>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
         

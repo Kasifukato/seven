@@ -72,22 +72,22 @@
 					</ul>
 				</div>
 			</li>
-			<li>
+			<!-- <li>
 				<div class="knav">
 					<a href="sales.php">
 						<span class="icon-receipt"></span>
 						<span class="txt">Sales</span>
 					</a>
 				</div>
-			</li>
-			<li>
+			</li> -->
+			<!-- <li>
 				<div class="knav">
 					<a href="media.php">
 						<span class="icon-filter_list"></span>
 						<span class="txt">Media</span>
 					</a>
 				</div>
-			</li>
+			</li> -->
 			<li class="has-drop">
 				<div class="knav sub-btn">
 					<a href="#">
@@ -104,7 +104,7 @@
 					</ul>
 				</div>
 			</li>
-			<li class="has-drop">
+			<!-- <li class="has-drop">
 				<div class="knav sub-btn">
 					<a href="#">
 						<span class="icon-order"></span>
@@ -118,7 +118,7 @@
 						<li><a href="billing.php">Billing</a></li>
 					</ul>
 				</div>
-			</li>
+			</li> -->
 		</ul>
 	</nav>
 </aside>

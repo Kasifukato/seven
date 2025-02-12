@@ -4,7 +4,7 @@
 		<ul>
 			<li>
 				<div class="knav">
-					<a href="admin.php">
+					<a href="user_dashboard.php">
 						<span class="icon-dashboard"></span>
 						<span class="txt">Dashboard</span>
 					</a>
@@ -88,14 +88,14 @@
 					</ul>
 				</div>
 			</li> -->
-			<li>
+			<!-- <li>
 				<div class="knav">
 					<a href="sales.php">
 						<span class="icon-receipt"></span>
 						<span class="txt">Sales</span>
 					</a>
 				</div>
-			</li>
+			</li> -->
 			<!-- <li>
 				<div class="knav">
 					<a href="media.php">
@@ -104,7 +104,7 @@
 					</a>
 				</div>
 			</li> -->
-			<li class="has-drop">
+			<!-- <li class="has-drop">
 				<div class="knav sub-btn">
 					<a href="#">
 						<span class="icon-inventory"></span>
@@ -119,7 +119,7 @@
 						<li><a href="monthly_sales.php">Monthly</a></li>
 					</ul>
 				</div>
-			</li>
+			</li> -->
 			
 			
 		</ul>

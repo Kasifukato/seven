@@ -22,6 +22,37 @@ if (isset($_POST['add_user'])) {
         $username = remove_junk($db->escape($_POST['username']));
         $password = remove_junk($db->escape($_POST['password']));
         $user_level = (int)$db->escape($_POST['level']);
+
+        // Check if username already exists (case-insensitive)
+        $username_check = "SELECT * FROM users WHERE LOWER(username) = LOWER('{$username}')";
+        $result = $db->query($username_check);
+        if ($result->num_rows > 0) {
+            $session->msg('d', 'Username already exists. Please choose a different username.');
+            redirect('add_user.php', false);
+            exit;
+        }
+
+        // If user role is supplier (level 4), perform additional checks
+        if ($user_level == 4) {
+            // Check if user with this name already exists as a supplier user
+            $existing_supplier_user = "SELECT * FROM users WHERE LOWER(name) = LOWER('{$name}') AND user_level = 4";
+            $user_result = $db->query($existing_supplier_user);
+            if ($user_result->num_rows > 0) {
+                $session->msg('d', 'A supplier user account already exists with this name.');
+                redirect('add_user.php', false);
+                exit;
+            }
+
+            // Check if supplier exists in suppliers table (case-insensitive)
+            $supplier_check = "SELECT * FROM suppliers WHERE LOWER(name) = LOWER('{$name}')";
+            $result = $db->query($supplier_check);
+            if ($result->num_rows == 0) {
+                $session->msg('d', 'Supplier "' . $name . '" does not exist in the suppliers database. Please add supplier first.');
+                redirect('add_user.php', false);
+                exit;
+            }
+        }
+
         $password = sha1($password);
         
         // Set current timestamp for last_login
