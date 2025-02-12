@@ -76,7 +76,7 @@ foreach ($sales_data as $product_id => $data) {
 							<div class="col xs-12 sm-6">
 								<h2 class="subheading"></h2>
 							</div>
-							<div class="col xs-12 sm-6">
+							<!-- <div class="col xs-12 sm-6">
 								<form method="POST">
 									<div class="site-panel">
 										<div class="form__module">
@@ -90,7 +90,7 @@ foreach ($sales_data as $product_id => $data) {
 										</div>
 									</div>
 								</form>
-							</div>
+							</div> -->
 						</div>
 						<div class="row">
 							<div class="col xs-12">

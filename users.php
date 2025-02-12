@@ -66,9 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
 									<td><?php echo read_date($a_user['last_login'])?></td>
 									<td class="text-center">
 										<div class="btn-group">
-											<a href="edit_user.php?id=<?php echo (int)$a_user['id'];?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit">
+											<!-- <a href="edit_user.php?id=<?php echo (int)$a_user['id'];?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit">
 												<span class="icon-edit"></span>
-											</a>
+											</a> -->
 											<a href="delete_user.php?id=<?php echo (int)$a_user['id'];?>" class="btn btn-xs btn-danger" data-toggle="tooltip" title="Remove">
 												<span class="icon-trash"></span>
 											</a>

@@ -18,22 +18,19 @@ if (isset($_GET['id'])) {
     redirect('manage_suppliers.php');
 }
 
-// Fetch products for dropdown
+// Fetch products for dropdown (now just for display)
 $products = find_all('products');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['update_supplier'])) {
-        $name = remove_junk($db->escape($_POST['name']));
         $email = remove_junk($db->escape($_POST['email']));
         $contact = remove_junk($db->escape($_POST['contact']));
-        $product_id = (int)$_POST['product_id']; // Fetch product_id from dropdown
-        $date = remove_junk($db->escape($_POST['date']));
 
-        if (empty($name) || empty($email) || empty($contact) || empty($product_id) || empty($date)) {
+        if (empty($email) || empty($contact)) {
             $session->msg("d", "Please fill in all fields.");
         } else {
             $query = "UPDATE suppliers SET ";
-            $query .= "name='{$name}', email='{$email}', contact='{$contact}', product_id='{$product_id}', joined_date='{$date}' ";
+            $query .= "email='{$email}', contact='{$contact}' ";
             $query .= "WHERE id='{$supplier_id}'";
 
             if ($db->query($query)) {
@@ -93,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <div class="form__module">
                 <label for="name" class="form__label">Supplier Name</label>
                 <div class="form__set">
-                 <input type="text" class="form-control" id="name" name="name" value="<?php echo remove_junk($supplier['name']); ?>">
+                 <input type="text" class="form-control" id="name" name="name" value="<?php echo remove_junk($supplier['name']); ?>" readonly style="background-color: #f0f0f0;">
                </div>
              </div>
            </div>
@@ -123,14 +120,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form__module">
               <label for="product_id" class="form__label">Product</label>
               <div class="form__set">
-                <select name="product_id" class="form-control">
-                  <option value="">Select Product</option>
+                <select name="product_id" class="form-control" disabled style="background-color: #f0f0f0;">
                   <?php foreach ($products as $product): ?>
                     <option value="<?php echo $product['id']; ?>" <?php if ($supplier['product_id'] == $product['id']) echo "selected"; ?>>
                       <?php echo $product['name']; ?>
                     </option>
                   <?php endforeach; ?>
                 </select>
+                <!-- Hidden input to preserve the product_id value -->
+                <input type="hidden" name="product_id" value="<?php echo $supplier['product_id']; ?>">
               </div>
             </div>
           </div>
@@ -141,7 +139,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input
                 type="date"
                 id="date"
-                name="date" value="<?php echo remove_junk($supplier['joined_date']); ?>">
+                name="date" 
+                value="<?php echo remove_junk($supplier['joined_date']); ?>"
+                readonly 
+                style="background-color: #f0f0f0;">
               </div>
             </div>
           </div>
