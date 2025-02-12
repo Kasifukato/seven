@@ -1,0 +1,113 @@
+.form__option {
+	input[type="checkbox"],
+	input[type="radio"] {
+		position: absolute;
+		right: 100%;
+		opacity: 0;
+		visibility: hidden;
+
+		&:checked {
+			+ label {
+				&:before {
+					background: transparent;
+					border-color: $primary;
+				}
+			}
+		}
+
+		+ label {
+			@include font-base-m(16px, 1);
+			@include inline-block;
+			color: $default;
+			cursor: pointer;
+			position: relative;
+			padding: 0 0 0 22px;
+			z-index: 0;
+
+			&:before {
+				content: '';
+				background: transparent;
+				border: 1px solid $gray-variant;
+				width: 18px;
+				height: 18px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 1;
+				transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+			}
+
+			&:after {
+				content: '';
+				position: absolute;
+				z-index: 2;
+			}
+		}
+	}
+
+	input[type="checkbox"] {
+		&:checked {
+			+ label {
+				&:before {
+					background: $primary;
+				}
+
+				&:after {
+					border-color: $white;
+				}
+			}
+		}
+
+		+ label {
+			&:before {
+				border-radius: 2px;
+			}
+
+			&:after {
+				border: {
+					style: solid;
+					color: transparent;
+					width: 0 2px 2px 0;
+				};
+				width: 5px;
+				height: 10px;
+				top: 3px;
+				left: 6px;
+				transform: rotate(45deg);
+				transition: border-color 0.3s ease-in-out;
+			}
+		}
+	}
+
+	input[type="radio"] {
+		&:checked {
+			+ label {
+				&:after {
+					background: $primary;
+				}
+			}
+		}
+
+		+ label {
+			&:before {
+				border-radius: 50%;
+				width: 14px;
+				height: 14px;
+			}
+
+			&:after {
+				background: transparent;
+				border-radius: 50%;
+				width: 8px;
+				height: 8px;
+				top: 3px;
+				left: 3px;
+				transition: background 0.3s ease-in-out;
+			}
+		}
+	}
+
+	input[type="checkbox"].error+label:before {
+		border-color: $blood-red;
+	}
+}

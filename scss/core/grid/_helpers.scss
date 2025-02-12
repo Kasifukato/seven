@@ -1,0 +1,378 @@
+// Clearfix
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+//
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+
+// clearfix
+%clearfix {
+	&:before,
+	&:after {
+		content: " "; // 1
+		display: table; // 2
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+%clearfix-after {
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+}
+
+.clearfix {
+	@extend %clearfix;
+}
+
+.clearfix-after {
+	@extend %clearfix-after;
+}
+
+// list reset
+%listreset {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+// transition
+%transition {
+	transition: all 0.3s ease-in-out;
+}
+
+// justify nav
+%justify {
+	text-align: justify;
+	font-size: 1px;
+	line-height: 0px;
+
+	> * {
+		display: inline-block;
+		vertical-align: top;
+		text-align: left;
+		font-size: $font-size-base;
+		line-height: $line-height-base;
+	}
+	&:after { 
+		content: '';
+		width: 100%;
+		display: inline-block;
+		vertical-align: top;
+	}
+}
+
+%no-visibility {
+	position:absolute;
+	left:-9999px;
+	top:auto;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+}
+
+.visuallyhidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+}
+
+
+/// * Helper class to truncate and add ellipsis to a string too long for it to fit
+/// * on a single line.
+/// * 1. Prevent content from wrapping, forcing it on a single line.
+/// * 2. Add ellipsis at the end of the line.
+
+.ellipsis {
+	white-space: nowrap; // 1
+	text-overflow: ellipsis; // 2
+	overflow: hidden;
+}
+
+.row-reverse {
+	flex-direction: row-reverse;
+}
+
+.col-reverse {
+	flex-direction: column-reverse;
+}
+
+.start {
+	justify-content: flex-start;
+	text-align: start;
+}
+
+.center {
+	justify-content: center;
+	text-align: center;
+}
+
+.end {
+	justify-content: flex-end;
+	text-align: end;
+}
+
+.top {
+	align-items: flex-start;
+}
+
+.middle {
+	align-items: center;
+}
+
+.bottom {
+	align-items: flex-end;
+}
+
+.around {
+	justify-content: space-around;
+}
+
+.between {
+	justify-content: space-between;
+}
+
+.first {
+	order: -1;
+}
+
+.last {
+	order: 1;
+}
+
+.start-xs {
+	justify-content: flex-start;
+	text-align: start;
+}
+
+.center-xs {
+	justify-content: center;
+	text-align: center;
+}
+
+.end-xs {
+	justify-content: flex-end;
+	text-align: end;
+}
+
+.top-xs {
+	align-items: flex-start;
+}
+
+.middle-xs {
+	align-items: center;
+}
+
+.bottom-xs {
+	align-items: flex-end;
+}
+
+.around-xs {
+	justify-content: space-around;
+}
+
+.between-xs {
+	justify-content: space-between;
+}
+
+.first-xs {
+	order: -1;
+}
+
+.last-xs {
+	order: 1;
+}
+
+@include media('>=phone') {
+	.start-sx {
+		justify-content: flex-start;
+		text-align: start;
+	}
+
+	.center-sx {
+		justify-content: center;
+		text-align: center;
+	}
+
+	.end-sx {
+		justify-content: flex-end;
+		text-align: end;
+	}
+
+	.top-sx {
+		align-items: flex-start;
+	}
+
+	.middle-sx {
+		align-items: center;
+	}
+
+	.bottom-sx {
+		align-items: flex-end;
+	}
+
+	.around-sx {
+		justify-content: space-around;
+	}
+
+	.between-sx {
+		justify-content: space-between;
+	}
+
+	.first-sx {
+		order: -1;
+	}
+
+	.last-sx {
+		order: 1;
+	}
+}
+@include media('>=tablet') {
+	.start-sm {
+		justify-content: flex-start;
+		text-align: start;
+	}
+
+	.center-sm {
+		justify-content: center;
+		text-align: center;
+	}
+
+	.end-sm {
+		justify-content: flex-end;
+		text-align: end;
+	}
+
+	.top-sm {
+		align-items: flex-start;
+	}
+
+	.middle-sm {
+		align-items: center;
+	}
+
+	.bottom-sm {
+		align-items: flex-end;
+	}
+
+	.around-sm {
+		justify-content: space-around;
+	}
+
+	.between-sm {
+		justify-content: space-between;
+	}
+
+	.first-sm {
+		order: -1;
+	}
+
+	.last-sm {
+		order: 1;
+	}
+}
+
+@include media('>=desktop') {
+	.start-md {
+		justify-content: flex-start;
+		text-align: start;
+	}
+
+	.center-md {
+		justify-content: center;
+		text-align: center;
+	}
+
+	.end-md {
+		justify-content: flex-end;
+		text-align: end;
+	}
+
+	.top-md {
+		align-items: flex-start;
+	}
+
+	.middle-md {
+		align-items: center;
+	}
+
+	.bottom-md {
+		align-items: flex-end;
+	}
+
+	.around-md {
+		justify-content: space-around;
+	}
+
+	.between-md {
+		justify-content: space-between;
+	}
+
+	.first-md {
+		order: -1;
+	}
+
+	.last-md {
+		order: 1;
+	}
+}
+
+@include media('>=widescreen') {
+	.start-lg {
+		justify-content: flex-start;
+		text-align: start;
+	}
+
+	.center-lg {
+		justify-content: center;
+		text-align: center;
+	}
+
+	.end-lg {
+		justify-content: flex-end;
+		text-align: end;
+	}
+
+	.top-lg {
+		align-items: flex-start;
+	}
+
+	.middle-lg {
+		align-items: center;
+	}
+
+	.bottom-lg {
+		align-items: flex-end;
+	}
+
+	.around-lg {
+		justify-content: space-around;
+	}
+
+	.between-lg {
+		justify-content: space-between;
+	}
+
+	.first-lg {
+		order: -1;
+	}
+
+	.last-lg {
+		order: 1;
+	}
+}

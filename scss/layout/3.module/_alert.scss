@@ -1,0 +1,46 @@
+.alert {
+	@include font-base-m(13px, 1.2);
+	cursor: default;
+	border: {
+		width: 2px;
+		style: solid;
+	};
+	padding: 10px 12px;
+	margin: 0 0 15px;
+	text-align: center;
+	@include media('>=tablet') {
+		margin: 0 0 20px;
+	}
+
+	p {
+		padding: 0;
+		margin: 0;
+	}
+
+	&-success {
+		background: lighten(saturate(#53a318, 0.33), 20.00);
+		border-color: lighten(saturate(adjust-hue(#53a318, -3), 25.67), 13.53);
+		color: darken(saturate(#53a318, 16.14), 24.31);
+	}
+
+	&-error {
+		background: lighten(saturate($error, 0.33), 20.00);
+		border-color: lighten(saturate(adjust-hue($error, -3), 25.67), 13.53);
+		color: darken(saturate($error, 16.14), 24.31);
+		// background: #fecbcb;
+		// border-color: #ffa6a6;
+		// color: #7a0000;
+	}
+
+	&-info {
+		background: #dbf2ff;
+		border-color: #b2e5ed;
+		color: #025360;
+	}
+
+	&-warning {
+		background: #fffdee;
+		border-color: #f6eed6;
+		color: #a26701;
+	}
+}

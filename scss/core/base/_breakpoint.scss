@@ -1,0 +1,19 @@
+$breakpoints: (
+	'sx-phone': $container-xs,
+	'phone': $container-sx,
+	'tablet': $container-sm,
+	'desktop': $container-md,
+	'standard': $container-sd,
+	'widescreen': $container-lg
+	);
+
+// keywords
+$media-expressions: (
+	'screen': 'screen',
+	'print': 'print',
+	'handheld': 'handheld',
+	'landscape': '(orientation: landscape)',
+	'portrait': '(orientation: portrait)',
+	'retina2x': '(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)',
+	'retina3x': '(-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi)'
+	);

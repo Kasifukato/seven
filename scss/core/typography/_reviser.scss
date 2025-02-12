@@ -1,0 +1,213 @@
+.reviser {
+	// @include tracking(49);
+	// line-height: 1.8667;
+	margin: 0 0 -1.5em;
+	line-height: 1.5;
+	overflow: hidden;
+
+	&--clip {
+		font-size: 15px;
+		line-height: 1.4667;
+
+		p {
+			margin: 0;
+		}
+	}
+
+	img {
+		border-radius: 12px;
+		height: auto;
+		width: 100%;
+		vertical-align: top;
+
+		&.alignleft {
+			float: left;
+			margin: 0 15px 5px 0;
+			width: 50%;
+			@include media('>=tablet') {
+				width: 60%;
+			}
+			@include media('>=desktop') {
+				margin: 0 35px 25px 0;
+				width: auto;
+			}
+		}
+
+		&.alignright {
+			float: right;
+			margin: 0 0 5px 15px;
+			width: 50%;
+			@include media('>=tablet') {
+				width: 60%;
+			}
+			@include media('>=desktop') {
+				margin: 0 0 25px 35px;
+				width: auto;
+			}
+		}
+	}
+
+	h1, h2, h3,
+	h4, h5, h6 {
+		font-family: $headings-font-family;
+	}
+
+	h1, .h1 {
+		font-size: 19px;
+		font-weight: 600;
+		@include media('>=desktop') {
+			font-size: $h1-font-size;
+		}
+	}
+
+	h2, .h2 {
+		font-weight: 600;
+		font-size: 18px;
+		@include media('>=desktop') {
+			font-size: $h2-font-size;
+		}
+	}
+
+	h3, .h3 {
+		font-weight: 600;
+		font-size: $h3-font-size;
+	}
+
+	h4, .h4 {
+		font-weight: 600;
+		font-size: $h4-font-size;
+	}
+
+	h5, .h5 {
+		font-weight: 600;
+		font-size: $h5-font-size;
+	}
+
+	h6, .h6 {
+		font-size: $h6-font-size;
+	}
+
+	a {
+		color: $base-link-color;
+		text-decoration: none;
+
+		&:hover {
+			color: $black;
+		}
+	}
+
+	a[href^="tel:"],
+	a[href^="mailto:"] {
+		white-space: nowrap;
+	}
+
+	p {
+		margin: 0 0 1.48em;
+	}
+
+	figure {
+		padding: 6px 0 0;
+		margin: 0 0 1.75em;
+
+		&.alignleft {
+			float: left;
+			margin: 0 15px 5px 0;
+			width: 50%;
+			@include media('>=tablet') {
+				width: 60%;
+			}
+			@include media('>=desktop') {
+				margin: 0 35px 25px 0;
+				width: auto;
+			}
+		}
+
+		&.alignright {
+			float: right;
+			margin: 0 0 5px 15px;
+			width: 50%;
+			@include media('>=tablet') {
+				width: 60%;
+			}
+			@include media('>=desktop') {
+				margin: 0 0 25px 35px;
+				width: auto;
+			}
+		}
+	}
+
+	figcaption {
+		color: $offblack;
+		font-size: 14px;
+		font-style: italic;
+		padding: 5px 0 0;
+		text-align: center;
+	}
+
+	ul {
+		@extend %listreset;
+		margin: 0 0 1em;
+		@include media('>=tablet') {
+			margin: 0 0 1.2em;
+		}
+
+		li {
+			padding: 0 0 6px 20px;
+			position: relative;
+			z-index: 0;
+
+			ul {
+				li {
+					padding: 0 0 6px 20px;
+				}
+			}
+
+			&:before {
+				content: '';
+				background: $base-text-color;
+				position: absolute;
+				width: 5px;
+				height: 5px;
+				border-radius: 50%;
+				top: 10px;
+				left: 6px;
+				z-index: -1;
+				@include media('>=tablet') {
+					top: 13px;
+				}
+			}
+		}
+	}
+
+	ol {
+		@extend %listreset;
+		counter-reset: section;
+		margin: 0 0 1em;
+		@include media('>=tablet') {
+			margin: 0 0 1.2em;
+		}
+
+		li {
+			position: relative;
+			padding: 0 0 6px 25px;
+			z-index: 0;
+
+			ol {
+				li {
+					padding: 0 0 20px 45px;
+				}
+			}
+
+			&:before {
+				counter-increment: section;
+				content: counters(section, ".") ". ";
+				position: absolute;
+				top: 0;
+				left: 1px;
+				text-align: right;
+				width: 20px;
+				z-index: -1;
+			}
+		}
+	}
+}

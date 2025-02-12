@@ -1,0 +1,42 @@
+.breadcrumb {
+	border-bottom: 1px solid #ccc;
+	padding: 15px 0;
+	@include media('>=tablet') {
+		padding: 19px 0;
+	}
+
+	ul {
+		@extend %listreset;
+		@include font-base(14px, 1.2);
+		@include tracking(50);
+		text-transform: uppercase;
+
+		li {
+			display: inline;
+
+			+ li {
+				&:before {
+					@include inline-block(middle);
+					@include icomoon;
+					@include font(13px, 0.3);
+					content: '\e938';
+					color: $black;
+					padding: 0 5px 0 3px;
+				}
+			}
+
+			a {
+				color: $primary;
+
+				&:hover {
+					color: $black;
+				}
+			}
+
+			.live {
+				color: $default;
+				cursor: default;
+			}
+		}
+	}
+}

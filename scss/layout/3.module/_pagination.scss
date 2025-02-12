@@ -1,0 +1,72 @@
+.pagination {
+	> ul {
+		@extend %listreset;
+		margin: 0 -2px 0 -3px;
+		display: flex;
+		justify-content: center;
+
+		> li {
+			padding: 0 4px;
+
+			// &.prev,
+			// &.next {
+			// 	a {
+			// 		@include font-base(10px, 1);
+			// 		background: none;
+			// 		width: auto;
+
+			// 		&:hover {
+			// 			background: none;
+			// 			color: $primary-light;
+			// 		}
+			// 	}
+			// }
+
+			&.paging a,
+			a,
+			&.active span {
+				background: #fff;
+				border: none;
+				border-radius: 5px;
+				color: $black;
+				font-size: 13px;
+				line-height: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 20px;
+				width: 30px;
+				box-shadow: 0 1rem 3rem rgba(132, 139, 200, 0.1);
+				transition: background 0.4s ease-in-out, color 0.4s ease-in-out;
+				@include media('>=tablet') {
+					font-size: 14px;
+					height: 30px;
+					width: 30px;
+				}
+
+				&:hover {
+					background: $primary;
+					color: $white;
+				}
+			}
+
+			&.paging a {
+				@include media('>=tablet') {
+					font-size: 10px;
+				}
+			}
+
+			&.active {
+				span {
+					background: $secondary-variant;
+					color: $white;
+					cursor: default;
+
+					&:hover {
+						background: $secondary-variant;
+					}
+				}
+			}
+		}
+	}
+}

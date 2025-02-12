@@ -1,0 +1,104 @@
+#wrapper {
+	background: $white;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+}
+
+.container {
+	max-width: $container-size + $grid-gutter-lg;
+}
+
+// adaptive images
+
+// google map fix
+.gm-style img {
+	max-width: none;
+}
+
+.svg-inline {
+	display: none;
+}
+
+.svg-wrap {
+	@include inline-block;
+	height: 40px;
+	width: 40px;
+
+	svg {
+		@include inline-block;
+		height: 100%;
+		width: 100%;
+		pointer-events: none;
+	}
+}
+
+.arrow-rt {
+	line-height: 18px;
+
+	&:after {
+		content: "\e938";
+		@include icomoon;
+		font-size: 17px;
+		// vertical-align: middle;
+		margin: 0 0 0 8px;
+	}
+}
+
+.tooltip {
+	position: relative;
+	z-index: 100;
+
+	&:hover {
+		&:after {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	&:after {
+		@include font(13px, 1.6);
+		background: $white;
+		border: 1px solid $default;
+		box-shadow: 0 0 7px rgba($black, 0.15);
+		border-radius: 6px;
+		content: attr(data-text);
+		position: absolute;
+		padding: 8px 10px;
+		width: 260px;
+		top: 100%;
+		left: 50%;
+		margin: 2px 0 0;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateX(-50%);
+		transition: visibility 0.4s ease-in-out, opacity 0.4s ease-in-out;
+		z-index: 1;
+	}
+}
+
+.grecaptcha-badge {
+	z-index: -1;
+}
+
+.slick-roller {
+	&:not(.slick-initialized) {
+		.slide {
+			&:not(:nth-child(-n+1)) {
+				display: none;
+			}
+		}
+	}
+}
+
+#wrapper ~ script + div[style*="clear"] {
+	position: absolute;
+	left: 100%;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+#__bs_notify__ {
+	display: none !important;
+}

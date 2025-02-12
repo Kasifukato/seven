@@ -1,0 +1,436 @@
+.button {
+	@include sitebutton;
+}
+
+
+.snow-tint {
+	background: $white;
+	border-color: $white;
+	color: $black;
+	text-shadow: 0 0 0 $black;
+
+	&:hover,
+	&:focus {
+		background: transparent;
+		border-color: $white;
+		color: $white;
+	}
+}
+.snow-line {
+	background: transparent;
+	// background: rgba($black, 0.25);
+	border-color: $white;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: $white;
+		color: $black;
+	}
+}
+.snow-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: $white;
+		color: $black;
+	}
+}
+
+
+.coal-tint {
+	background: $black;
+	border-color: $black;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: lighten($black, 8%);
+		border-color: lighten($black, 8%);
+		color: $white;
+	}
+}
+.coal-line {
+	background: transparent;
+	border-color: $black;
+	color: $black;
+
+	&:hover,
+	&:focus {
+		background: $black;
+		color: $white;
+	}
+}
+.coal-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $black;
+
+	&:hover,
+	&:focus {
+		background: $black;
+		color: $white;
+	}
+}
+
+.success-tint {
+	background: $success;
+	border-color: $success;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: lighten($success, 8%);
+		border-color: lighten($success, 8%);
+		color: $white;
+	}
+}
+.success-line {
+	background: transparent;
+	border-color: $success;
+	color: $success;
+
+	&:hover,
+	&:focus {
+		background: $success;
+		color: $white;
+	}
+}
+.success-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $success;
+
+	&:hover,
+	&:focus {
+		background: $success;
+		color: $white;
+	}
+}
+
+
+.danger-tint {
+	background: $error;
+	border-color: $error;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: lighten($error, 8%);
+		border-color: lighten($error, 8%);
+		color: $white;
+	}
+}
+.danger-line {
+	background: transparent;
+	border-color: $error;
+	color: $error;
+
+	&:hover,
+	&:focus {
+		background: $error;
+		color: $white;
+	}
+}
+.danger-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $error;
+
+	&:hover,
+	&:focus {
+		background: $error;
+		color: $white;
+	}
+}
+
+
+.warning-tint {
+	background: $warning;
+	border-color: $warning;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: lighten($warning, 8%);
+		border-color: lighten($warning, 8%);
+		color: $white;
+	}
+}
+.warning-line {
+	background: transparent;
+	border-color: $warning;
+	color: $warning;
+
+	&:hover,
+	&:focus {
+		background: $warning;
+		color: $white;
+	}
+}
+.warning-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $warning;
+
+	&:hover,
+	&:focus {
+		background: $warning;
+		color: $white;
+	}
+}
+
+
+.info-tint {
+	background: $info;
+	border-color: $info;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: lighten($info, 8%);
+		border-color: lighten($info, 8%);
+		color: $white;
+	}
+}
+.info-line {
+	background: transparent;
+	border-color: $info;
+	color: $info;
+
+	&:hover,
+	&:focus {
+		background: $info;
+		color: $white;
+	}
+}
+.info-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $info;
+
+	&:hover,
+	&:focus {
+		background: $info;
+		color: $white;
+	}
+}
+
+
+.default-tint {
+	background: $default;
+	border-color: $default;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: lighten($default, 8%);
+		border-color: lighten($default, 8%);
+		color: $white;
+	}
+}
+.default-line {
+	background: transparent;
+	border-color: $default;
+	color: $default;
+
+	&:hover,
+	&:focus {
+		background: $default;
+		color: $white;
+	}
+}
+.default-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $default;
+
+	&:hover,
+	&:focus {
+		background: $default;
+		color: $white;
+	}
+}
+
+
+.light-tint {
+	background: $light;
+	border-color: $light;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: darken($light, 8%);
+		border-color: darken($light, 8%);
+		color: $white;
+	}
+}
+.light-line {
+	background: transparent;
+	border-color: $light;
+	color: $light;
+
+	&:hover,
+	&:focus {
+		background: $light;
+		color: $black;
+	}
+}
+.light-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $light;
+
+	&:hover,
+	&:focus {
+		background: $light;
+		color: $black;
+	}
+}
+
+
+.muted-tint {
+	background: $muted;
+	border: 1px solid $muted;
+	color: $black;
+
+	&:hover,
+	&:focus {
+		background: darken($muted, 8%);
+		border-color: darken($muted, 8%);
+		color: $black;
+	}
+}
+.muted-line {
+	background: transparent;
+	border-color: $muted;
+	color: $muted;
+
+	&:hover,
+	&:focus {
+		background: $muted;
+		color: $black;
+	}
+}
+.muted-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $muted;
+
+	&:hover,
+	&:focus {
+		background: $muted;
+		color: $black;
+	}
+}
+
+
+.primary-tint {
+	background: $primary;
+	border-color: $primary;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: lighten($primary, 8%);
+		border-color: lighten($primary, 8%);
+		color: $white;
+	}
+}
+.primary-line {
+	background: transparent;
+	border-color: $primary;
+	color: $primary;
+
+	&:hover,
+	&:focus {
+		border-color: transparent;
+		color: $primary-light;
+	}
+}
+.primary-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $primary;
+
+	&:hover,
+	&:focus {
+		background: $primary;
+		color: $white;
+	}
+}
+
+
+.secondary-tint {
+	background: $secondary;
+	border-color: $secondary;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: lighten($secondary, 8%);
+		border-color: lighten($secondary, 8%);
+		color: $white;
+	}
+}
+.secondary-line {
+	background: transparent;
+	border-color: $secondary;
+	color: $secondary;
+
+	&:hover,
+	&:focus {
+		background: $secondary;
+		color: $white;
+	}
+}
+.secondary-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $secondary;
+
+	&:hover,
+	&:focus {
+		background: $secondary;
+		color: $white;
+	}
+}
+
+
+.tertiary-tint {
+	background: $tertiary;
+	border-color: $tertiary;
+	color: $white;
+
+	&:hover,
+	&:focus {
+		background: lighten($tertiary, 8%);
+		border-color: lighten($tertiary, 8%);
+		color: $white;
+	}
+}
+.tertiary-line {
+	background: none;
+	border-color: $tertiary;
+	color: $tertiary;
+
+	&:hover,
+	&:focus {
+		background: $tertiary;
+		color: $white;
+	}
+}
+.tertiary-blank {
+	background: transparent;
+	border-color: transparent;
+	color: $tertiary;
+
+	&:hover,
+	&:focus {
+		background: $tertiary;
+		color: $white;
+	}
+}

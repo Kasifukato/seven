@@ -1,0 +1,53 @@
+.text-default {
+	color: $default;
+}
+
+.text-primary {
+	color: $primary;
+}
+
+.text-secondary {
+	color: $secondary;
+}
+
+.text-success {
+	color: $success;
+}
+
+.text-danger {
+	color: $error;
+}
+
+.text-warning {
+	color: $warning;
+}
+
+.text-info {
+	color: $info;
+}
+
+.text-cross {
+	text-decoration: line-through;
+}
+
+.bg-primary {
+	background: lighten(saturate(adjust-hue(#046ff3, -16), 3.24), 4.31);
+}
+
+.bg-danger {
+	background: lighten(desaturate(adjust-hue($error, -1), 7.28), 18.24)
+;
+}
+.bg-warning {
+	background: $warning;
+}
+
+// .bg-light {
+// 	background: darken($white, 7.84);
+// }
+// .bg-dark {
+// 	background: $default;
+// }
+// .bg-white {
+// 	background: $white;
+// }

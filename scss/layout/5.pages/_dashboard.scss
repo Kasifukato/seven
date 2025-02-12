@@ -1,0 +1,239 @@
+.adm-dashboard__main {
+	.recent-orders {
+		margin-top: 2rem;
+
+		h2 {
+			margin-bottom: 0.8rem;
+		}
+
+		table {
+			background: $white;
+			width: 100%;
+			border-radius: 10px;
+			padding: 15px;
+			text-align: center;
+			box-shadow: 0 1rem 3rem rgba(132, 139, 200, 0.1);
+			transition: all 300ms ease;
+
+
+			&:hover {
+				box-shadow: none;
+			}
+			th {
+				background: $primary;
+				color: $white;
+			}
+			tbody td {
+				height: 1.8rem;
+				border-bottom: 1px solid rgba(132, 139, 200, 0.1);;
+				color: #677483;
+			}
+
+			body tr:last-child td {
+				border: none;
+			}
+		}
+
+		a {
+			text-align: center;
+			display: block;
+			margin: 1rem auto;
+			color: #7380ec;
+		}
+	}
+
+
+	.date {
+		display: inline-block;
+		background: transparent;
+		border-radius: 5px;
+		margin-top: 1rem;
+		padding: 0.5rem 0;
+	}
+
+	.date input[type="date"] {
+		background: transparent;
+		color: $default;
+		border: none;
+	}
+
+	.insights {
+
+		.middle {
+			position: relative;
+			h1 {
+				font-size: 1.3em;
+			}
+		}
+	}
+
+	.insights > div {
+		border-radius: 5px;
+		margin-top: 1rem;
+		transition: all 300ms ease;
+	}
+
+	.insights > div:hover {
+		box-shadow:none
+	}
+
+	.insights > div .middle {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.insights {
+		.panel {
+			box-shadow: 0 1rem 3rem rgba(132, 139, 200, 0.1);
+			background: $white;
+			padding: 15px 10px;
+			border-radius: 5px;
+		}
+		h3 {
+			margin: 1rem 0 0.6rem;
+			font-size: 1rem;
+			color: $default;
+		}
+
+		.progress {
+			position: absolute;
+			border-radius: 50%;
+			left: 85%;
+			top: 20%;
+
+		}
+
+		small {
+			background: #F0F8FF;
+			margin-top: 15px;
+			display: block;
+			padding: 10px;
+		}
+	}
+
+	.recent-updates {
+		margin-top: 1rem;
+
+
+		h2 {
+			margin-bottom: 0.8rem;
+		}
+
+		.updates {
+			background: $white;
+			padding: 20px 10px;
+			border-radius: 10px;
+			box-shadow: 0 1rem 3rem rgba(132, 139, 200, 0.1);
+			transition: all 300ms ease;
+			.update {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-bottom: 1rem;
+				justify-content: space-between;
+				.message {
+					display: flex;
+
+					.msg--info {
+						padding: 0 0 0 40px;
+					}
+				}
+				p {
+					font-size: 13px;
+				}
+				.sales {
+					font-size: 13px;
+					font-weight: 600;
+				}
+			}
+		}
+
+		.updates:hover {
+			box-shadow: none;
+		}
+	}
+
+	.sales-analytics {
+		margin-top: 2rem;
+
+		h2 {
+			margin-bottom: 0.8rem;
+		}
+
+		.item {
+			background: $white;
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			margin-bottom: 0.7rem;
+			padding: 1.4rem  1.8rem;
+			border-radius: 10px;
+			box-shadow: 0 1rem 3rem rgba(132, 139, 200, 0.1);
+			transition: all 300ms ease;
+		}
+
+		.item:hover {
+			box-shadow: none;
+		}
+
+		.item .right {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			align-items: center;
+			margin: 0;
+			width: 100%;
+			color: $primary;
+
+			h3 {
+				font-size: 0.87rem;
+			}
+			.info {
+				h3 {
+					color: $primary;
+					font-size: 0.87rem;
+				}
+			}
+		}
+	}
+
+	.sales-analytics{
+		.item {
+			.icon {
+				padding: 1rem;
+				width: 10%;
+				color: $white;
+				border-radius: 50%;
+				background: #7380ec;
+				display: flex;
+			}
+
+			.offline .icon {
+				background: $error;
+			}
+			.customers .icon {
+				background: $success;
+			}
+		}
+
+		.add-product {
+			padding: 5px;
+			background-color: transparent;
+			border: 2px dashed #7380ec;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.add-product div {
+			display: flex;
+			align-items: center;
+			gap: 0.6rem;
+		}
+
+		.add-product div h3 {
+			font-weight: 600;
+		}
+	}
+}

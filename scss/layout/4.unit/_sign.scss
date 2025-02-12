@@ -1,0 +1,52 @@
+// .site__sign {
+// 	@include aspect-backdrop(0.3);
+
+// 	&.sign__lg {
+
+// 		.site__sign-caption {
+// 			@include media('>=desktop') {
+// 				height: 400px;
+// 			}
+// 			@include media('>=standard') {
+// 				height: 500px;
+// 			}
+// 			@include media('>=widescreen') {
+// 				height: 600px;
+// 			}
+// 		}
+// 	}
+
+// 	&-caption {
+// 		display: flex;
+// 		justify-content: center;
+// 		align-items: flex-end;
+// 		height: 250px;
+// 		padding: 0 0 50px;
+// 		text-align: center;
+// 		@include media('>=tablet') {
+// 			height: 300px;
+// 			max-width: 60%;
+// 			margin: 0 auto;
+// 			padding: 0 0 70px;
+// 		}
+// 		@include media('>=standard') {
+// 			height: 500px;
+// 			padding: 0 0 89px;
+// 			max-width: 50%;
+// 		}
+// 	}
+
+// 	&-title {
+// 		@include font-sub(26px, 1.24);
+// 		color: $white;
+// 		@include media('>=tablet') {
+// 			font-size: 35px;
+// 		}
+// 		@include media('>=desktop') {
+// 			font-size: 42px;
+// 		}
+// 		@include media('>=standard') {
+// 			font-size: 50px;
+// 		}
+// 	}
+// }

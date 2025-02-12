@@ -1,0 +1,68 @@
+.rating {
+	display: flex;
+}
+.rate {
+	@include inline-block;
+	@include font-base(12px, 1);
+	color: $warning;
+	position: relative;
+	letter-spacing: 4px;
+	overflow: hidden;
+	white-space: nowrap;
+	z-index: 0;
+
+	&:before {
+		@include icomoon;
+		display: flex;
+		content: "\e935\e935\e935\e935\e935";
+	}
+
+	&:after {
+		@include icomoon;
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		overflow: hidden;
+	}
+
+	&.rate-5 {
+		&:after {
+			content: "\e936\e936\e936\e936\e936";
+		}
+	}
+
+	&.rate-4 {
+		&:after {
+			content: "\e936\e936\e936\e936";
+		}
+	}
+
+	&.rate-3 {
+		&:after {
+			content: "\e936\e936\e936";
+		}
+	}
+
+	&.rate-2 {
+		&:after {
+			content: "\e936\e936";
+		}
+	}
+
+	&.rate-1 {
+		&:after {
+			content: "\e936";
+		}
+	}
+
+	&-point {
+		position: absolute;
+		right: 101%;
+	}
+
+	&-count {
+		font-size: 12px;
+		color: $black;
+	}
+}

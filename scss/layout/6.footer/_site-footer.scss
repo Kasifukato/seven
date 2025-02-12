@@ -1,0 +1,12 @@
+	.site__footer{
+		// margin: 5%;
+		display: flex;
+		justify-content: center;
+		background: $primary;
+		padding: 10px;
+	 .copy {
+		font-size: 13px;
+		color: $white;
+		letter-spacing: -0.5px;
+	}
+}

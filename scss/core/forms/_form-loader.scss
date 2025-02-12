@@ -1,0 +1,80 @@
+.loader {
+	background: $white;
+	border: 1px solid $primary;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+}
+
+.lds-loader {
+	@include inline-block(middle);
+	position: relative;
+	width: 38px;
+	height: 34px;
+	@include media('>=desktop') {
+		width: 52px;
+		height: 40px;
+	}
+
+	div {
+		border: 1px solid $primary;
+		background: rgba($primary, 0.3);
+		@include inline-block(middle);
+		position: absolute;
+		left: 6px;
+		width: 6px;
+		height: 20px;
+		animation: lds-loader-m 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+		@include media('>=desktop') {
+			width: 8px;
+			animation: lds-loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+		}
+
+		&:nth-child(1) {
+			left: 4px;
+			animation-delay: -0.24s;
+			@include media('>=desktop') {
+				left: 6px;
+			}
+		}
+		&:nth-child(2) {
+			left: 16px;
+			animation-delay: -0.12s;
+			@include media('>=desktop') {
+				left: 22px;
+			}
+		}
+		&:nth-child(3) {
+			left: 28px;
+			animation-delay: 0s;
+			@include media('>=desktop') {
+				left: 38px;
+			}
+		}
+	}
+}
+
+@keyframes lds-loader-m {
+	0% {
+		top: 4px;
+		height: 25px;
+	}
+	50%, 100% {
+		top: 10px;
+		height: 14px;
+	}
+}
+
+@keyframes lds-loader {
+	0% {
+		top: 4px;
+		height: 34px;
+	}
+	50%, 100% {
+		top: 14px;
+		height: 15px;
+	}
+}

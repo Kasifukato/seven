@@ -1,0 +1,740 @@
+// vertical align el inside parent with fixed height/min-height
+// usage 
+// html - .parent>.child
+// scss - @include v-align;
+//     or @include v-align(250px);
+//     or @include v-align(250px, bottom, before);
+//
+@mixin v-align($va-height: 100%, $va-direction: middle, $va-pseudo: after) {
+	white-space: nowrap;
+	text-align: center;
+
+	&:#{$va-pseudo} {
+		content: '';
+		display: inline-block;
+		vertical-align: $va-direction;
+		width: 0;
+		min-height: $va-height;
+	}
+
+	> * {
+		white-space: normal;
+		display: inline-block;
+		vertical-align: $va-direction;
+		max-width: 100%;
+	}
+}
+
+// vertical align a pair of child el inside parent
+// usage 
+// html - .post>.image+.text
+// scss - @include v-align-pair(image, text);
+//     or @include v-align-pair(image, text, bottom);
+//     or @include v-align-pair(image, text, middle, 200px);
+//
+@mixin v-align-pair($child-name1, $child-name2, $valign: middle, $width1: auto, $width2: auto ) {
+	display: table;
+	.#{$child-name1}{
+		display: table-cell;
+		vertical-align: $valign;
+		width: $width1; 
+	}
+	.#{$child-name2} {
+		display: table-cell;
+		vertical-align: $valign;
+		width: $width2;
+	}
+}
+
+
+// vertical align el
+// usage: @include vertical-align-el;
+//
+@mixin vertical-align-el {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+/// Mixin helping defining both `width` and `height` simultaneously.
+///
+/// @author Hugo Giraudel
+///
+/// @access public
+///
+/// @param {Length} $width - Element’s `width`
+/// @param {Length} $height ($width) - Element’s `height`
+///
+/// @example scss - Usage
+///   .foo {
+///     @include size(10em);
+///   }
+///
+///   .bar {
+///     @include size(100%, 10em);
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     width: 10em;
+///     height: 10em;
+///   }
+///
+///   .bar {
+///     width: 100%;
+///     height: 10em;
+///   }
+///
+@mixin size($width, $height: $width) {
+	width: $width;
+	height: $height;
+}
+
+/// font-smothing
+/// @include font-smoothing(on);
+/// @include font-smoothing(off);
+@mixin font-smoothing($value:on){
+	@if $value == on{
+		-webkit-font-smoothing:antialiased;
+		-moz-osx-font-smoothing:grayscale;
+	}
+	@else{
+		-webkit-font-smoothing:subpixel-antialiased;
+		-moz-osx-font-smoothing:auto;
+	}
+}
+
+
+/// Hides the text in an element, commonly used to show an image. Some elements will need block-level styles applied.
+///
+/// @link http://zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement
+///
+/// @example scss - Usage
+///   .element {
+///     @include hide-text;
+///   }
+///
+/// @example css - CSS Output
+///   .element {
+///     overflow: hidden;
+///     text-indent: 101%;
+///     white-space: nowrap;
+///   }
+///
+@mixin hide-text {
+	overflow: hidden;
+	text-indent: 101%;
+	white-space: nowrap;
+}
+
+
+/// Creates a visual triangle. 
+/// Mixin takes ($size, $color, $direction)
+/// The $size argument can take one or two values—width height.
+/// The $color argument can take one or two 
+/// values—foreground-color background-color.
+/// 
+/// @author http://bourbon.io/docs/#triangle
+///
+/// $direction: 
+/// up, down, left, right, up-right, up-left, down-right, down-left
+/// @example scss - Usage
+///   @include triangle(12px, gray, down);
+///   @include triangle(12px 6px, gray blue, up-left);
+///
+@mixin triangle($size, $color, $direction) {
+	$width: nth($size, 1);
+	$height: nth($size, length($size));
+	$foreground-color: nth($color, 1);
+	$background-color: if(length($color) == 2, nth($color, 2), transparent);
+	height: 0;
+	width: 0;
+
+	@if ($direction == up) or ($direction == down) or ($direction == right) or ($direction == left) {
+		$width: $width / 2;
+		$height: if(length($size) > 1, $height, $height/2);
+
+		@if $direction == up {
+			border-bottom: $height solid $foreground-color;
+			border-left: $width solid $background-color;
+			border-right: $width solid $background-color;
+		}
+		@else if $direction == right {
+			border-bottom: $width solid $background-color;
+			border-left: $height solid $foreground-color;
+			border-top: $width solid $background-color;
+		}
+		@else if $direction == down {
+			border-left: $width solid $background-color;
+			border-right: $width solid $background-color;
+			border-top: $height solid $foreground-color;
+		}
+		@else if $direction == left {
+			border-bottom: $width solid $background-color;
+			border-right: $height solid $foreground-color;
+			border-top: $width solid $background-color;
+		}
+	}
+	@else if ($direction == up-right) or ($direction == up-left) {
+		border-top: $height solid $foreground-color;
+
+		@if $direction == up-right {
+			border-left:  $width solid $background-color;
+		}
+		@else if $direction == up-left {
+			border-right: $width solid $background-color;
+		}
+	}
+	@else if ($direction == down-right) or ($direction == down-left) {
+		border-bottom: $height solid $foreground-color;
+
+		@if $direction == down-right {
+			border-left:  $width solid $background-color;
+		}
+		@else if $direction == down-left {
+			border-right: $width solid $background-color;
+		}
+	}
+	@else if ($direction == inset-up) {
+		border-color: $background-color $background-color $foreground-color;
+		border-style: solid;
+		border-width: $height $width;
+	}
+	@else if ($direction == inset-down) {
+		border-color: $foreground-color $background-color $background-color;
+		border-style: solid;
+		border-width: $height $width;
+	}
+	@else if ($direction == inset-right) {
+		border-color: $background-color $background-color $background-color $foreground-color;
+		border-style: solid;
+		border-width: $width $height;
+	}
+	@else if ($direction == inset-left) {
+		border-color: $background-color $foreground-color $background-color $background-color;
+		border-style: solid;
+		border-width: $width $height;
+	}
+}
+
+
+/// Animate css properties
+// usage 
+// scss - @include animate(color);
+//     or @include animate(color width);
+//     or @include animate(color width, 1s, linear);
+//
+// $animation-speed: 0.4s !default;
+
+@mixin animate($properties, $duration: 0.4s, $easing: ease-in-out) {
+	$list:();
+	@each $prop in $properties {
+		$str: #{$prop} #{$duration} #{$easing};
+		$list: join($list, #{$str}, comma);
+	}
+	transition: $list;
+}
+
+
+/// Mixin for styling form-placeholders
+/// @example scss - Usage
+///   @include placeholder {
+///    color: #333;
+///   }
+///
+///   input[type='text'],
+///   input[type='tel'],
+///   input[type='email'] {
+///     @include placeholder {
+///      color: red;
+///     }
+///   }
+
+@mixin placeholder {
+	&::-webkit-input-placeholder {@content}
+	&::-moz-placeholder {opacity: 1; @content}
+	&:-moz-placeholder {@content}
+	&:-ms-input-placeholder {@content}
+	&.placeholder {@content}
+}
+
+/// Font-size px to rem calc
+/// @example scss - Usage
+/// selector {
+	///    @include rem-font-size(16px);
+/// }
+
+@mixin rem-font-size($pxSize) {
+	font-size: $pxSize;
+	font-size: ($pxSize / 10px) + rem;
+}
+
+@mixin font-size($sizeValue: 1.6) {
+	font-size: ($sizeValue * 10) + px;
+	font-size: $sizeValue + rem;
+}
+
+@mixin icomoon {
+	@extend .icon;
+}
+
+@mixin sitebutton {
+	@include font-base(16px, 1);
+	@include inline-block;
+	border: {
+		radius: 50px;
+		style: solid;
+		width: 2px;
+	};
+	cursor: pointer;
+	height: 40px;
+	padding: 10px 18px;
+	min-width: 110px;
+	text-align: center;
+	text-decoration: none;
+	// text-transform: uppercase;
+	@include animate(background border color);
+	// transition: {
+	// 	property: background, border, color;
+	// 	duration: 0.4s;
+	// 	timing-function: ease-in-out;
+	// };
+	@include media('>=desktop') {
+		min-width: 110px;
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+// @mixin sitebutton-default {
+// }
+
+// @mixin sitebutton-default-outline {
+// }
+
+// @mixin sitebutton-default-blank {
+// }
+
+// @mixin sitebutton-light {
+// }
+
+// @mixin sitebutton-light-outline {
+// }
+
+// @mixin sitebutton-light-blank {
+// }
+
+// @mixin sitebutton-primary {
+// }
+
+// @mixin sitebutton-primary-outline {
+// }
+
+// @mixin sitebutton-primary-blank {
+// }
+
+// @mixin sitebutton-secondary {
+// }
+
+// @mixin sitebutton-secondary-outline {
+// }
+
+// @mixin sitebutton-secondary-blank {
+// }
+
+// @mixin sitebutton-tertiary {
+// }
+
+// @mixin sitebutton-tertiary-outline {
+// }
+
+// @mixin sitebutton-tertiary-blank {
+// }
+
+// @mixin sitebutton-success {
+// }
+
+// @mixin sitebutton-success-outline {
+// }
+
+// @mixin sitebutton-success-blank {
+// }
+
+// @mixin sitebutton-danger {
+// }
+
+// @mixin sitebutton-danger-outline {
+// }
+
+// @mixin sitebutton-danger-blank {
+// }
+
+// @mixin sitebutton-warning {
+// }
+
+// @mixin sitebutton-warning-outline {
+// }
+
+// @mixin sitebutton-warning-blank {
+// }
+
+// @mixin sitebutton-info {
+// }
+
+// @mixin sitebutton-info-outline {
+// }
+
+// @mixin sitebutton-info-blank {
+// }
+
+
+@mixin inline-block($align: top) {
+	display: inline-block;
+	vertical-align: $align;
+}
+
+@mixin font($font-size: $font-size-base, $line-height: $line-height-base) {
+	font-size: $font-size;
+	line-height: $line-height;
+}
+
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}
+	@-ms-keyframes #{$animation-name} {
+		@content;
+	}
+	@-o-keyframes #{$animation-name} {
+		@content;
+	}
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
+
+@mixin animation($str) {
+	-webkit-animation: #{$str};
+	-moz-animation: #{$str};
+	-ms-animation: #{$str};
+	-o-animation: #{$str};
+	animation: #{$str};
+}
+
+@mixin backdrop {
+	background: {
+		image: url($urlBase+'images/site-marker.svg');
+		color: $watermark-background-color;
+		size: 40% auto;
+		position: 50% 50%;
+		repeat: no-repeat;
+	};
+}
+
+@mixin aspect-ratio($width, $height, $opacity:off, $bg-marker:on) {
+	@if $bg-marker != off {
+		@include backdrop;
+	}
+	position: relative;
+	z-index: 0;
+
+	&:before {
+		content: '';
+		display: block;
+		padding-top: ($height / $width) * 100%;
+	}
+	@if $opacity != off {
+		&:after {
+			content: '';
+			background: $black;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			opacity: $opacity;
+			transition: opacity 0.4s ease-in-out;
+			z-index: -1;
+		}
+	}
+
+	> img {
+		object-fit: cover;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -2;
+	}
+
+	> iframe {
+		border: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -2;
+	}
+}
+
+@mixin aspect-backdrop($opacity: off) {
+	@include backdrop;
+	position: relative;
+	z-index: 0;
+
+	@if $opacity != off {
+		&:after {
+			content: '';
+			background: $black;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			opacity: $opacity;
+			transition: opacity 0.4s ease-in-out;
+			z-index: -1;
+		}
+	}
+
+	> img {
+		object-fit: cover;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -2;
+	}
+
+	> iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -2;
+	}
+}
+
+@mixin aspect-size($width, $height) {
+	position: relative;
+	z-index: 0;
+
+	&:before {
+		content: '';
+		display: block;
+		width: 100%;
+		padding-top: ($height / $width) * 100%;
+		z-index: -1;
+	}
+}
+
+@mixin aspect-height($width, $height) {
+	&:before {
+		padding-top: ($height / $width) * 100%;
+	}
+}
+
+@mixin aspect-width($block-width, $full-width) {
+	width: ( $block-width / $full-width ) * 100%;
+}
+
+@mixin aspect-width($block-width, $full-width) {
+	width: ( $block-width / $full-width ) * 100%;
+}
+
+// convert photoshop letter spacing
+@mixin tracking($tracking){
+	letter-spacing: ( $tracking / 1000 ) * 1em;
+}
+
+
+// fonts defination
+// fonts base defination
+@mixin font-base-t($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 100 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-ti($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 100 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-el($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 200 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-eli($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 200 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-l($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 300 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-li($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 300 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 400 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-i($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 400 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-m($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 500 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-mi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 500 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-sb($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 600 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-sbi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 600 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-b($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 700 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-bi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 700 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-eb($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 800 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-ebi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 800 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-bk($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 900 #{$font-size}/#{$line-height} $font-base;
+}
+@mixin font-base-bki($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 900 #{$font-size}/#{$line-height} $font-base;
+}
+
+
+// fonts substitue defination
+@mixin font-sub-t($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 100 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-ti($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 100 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-el($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 200 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-eli($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 200 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-l($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 300 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-li($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 300 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 400 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-i($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 400 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-m($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 500 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-mi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 500 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-sb($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 600 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-sbi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 600 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-b($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 700 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-bi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 700 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-eb($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 800 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-ebi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 800 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-bk($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 900 #{$font-size}/#{$line-height} $font-sub;
+}
+@mixin font-sub-bki($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 900 #{$font-size}/#{$line-height} $font-sub;
+}
+
+
+// fonts alter defination
+@mixin font-alter-t($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 100 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-ti($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 100 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-el($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 200 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-eli($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 200 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-l($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 300 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-li($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 300 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 400 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-i($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 400 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-m($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 500 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-mi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 500 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-sb($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 600 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-sbi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 600 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-b($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 700 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-bi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 700 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-eb($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 800 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-ebi($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 800 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-bk($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: 900 #{$font-size}/#{$line-height} $font-alter;
+}
+@mixin font-alter-bki($font-size: $font-size-base, $line-height: $line-height-base) {
+	font: italic 900 #{$font-size}/#{$line-height} $font-alter;
+}
+
+
+@mixin hover($color: $base-link-color, $value: 15%) {
+	transition: color 0.3s ease-in-out;
+
+	&:hover {
+		text-decoration: none;
+		color: $color;
+		// color: darken($color, $value);
+	}
+}

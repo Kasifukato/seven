@@ -1,0 +1,372 @@
+.profile-dropdown {
+	position: relative;
+	width: fit-content;
+}
+.profile-dropdown-btn {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 5px 0 0 ;
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: $default;
+	background-color: $white;
+	border-radius: 50px ;
+	box-shadow: 0px 2px 8px 0px rgb(34, 124, 112, 0.2);
+	/* box-shadow: var(--shadow); */
+
+	cursor: pointer;
+	/* border: 1px solid var(--secondary); */
+	transition: box-shadow 0.2s ease-in, background-color 0.2s ease-in,
+	border 0.3s;
+}
+.profile-dropdown-list-item a {
+	display: flex;
+	text-align: center;
+	align-items: center;
+	font-size: 15px;
+	text-decoration: none;
+	font-weight: 500;
+	color: $default;
+}
+.profile-dropdown-list-item a i {
+	/* margin-right: 0.8rem; */
+	font-size: 0.9rem;
+	width: 30px;
+	height: 30px;
+	background-color: $primary;
+	color: $white;
+	line-height: 2.3rem;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	margin-right: 9px;
+	border-radius: 50%;
+	transition: margin-right 0.3s;
+}
+.profile-dropdown-list-item {
+	list-style-type: none;
+	padding: 5px 25px;
+	transition: background-color 0.2s ease-in, padding-left 0.2s;
+}
+.profile-dropdown-list {
+	position: absolute;
+	top:40px;
+	padding: 0;
+	right: 0;
+	background-color: $white;
+	border-radius: 10px;
+	box-shadow: 0px 2px 8px 0px rgb(34, 124, 112, 0.2);
+	transition: max-height 0.5s;
+	max-height: 0;
+	overflow: hidden;
+}
+
+.profile-dropdown-btn:hover {
+	background-color: rgb(127, 183, 126, 0.1);
+	box-shadow: 0px 2px 8px 0px rgb(34, 124, 112, 0.2);
+}
+
+.profile-img {
+	border-radius: 50%;
+	background-size: cover;
+}
+.profile-img img {
+	position: relative;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.profile-dropdown-btn span {
+	margin: 0 0.5rem;
+	margin-right: 0;
+}
+
+.profile-dropdown-list hr {
+	border: 0.5px solid $gray-variant;
+}
+
+.profile-dropdown-list.active {
+	padding: 0;
+	max-height: 500px;
+}
+
+
+.profile-dropdown-list-item:hover {
+	background-color: #F0F8FF;
+}
+
+
+
+.site {
+	&__header {
+		background: $white;
+		display: flex;
+		align-items: center;
+		// padding: 5px 30px;
+		box-shadow: 0 0.2rem 2rem rgba(132, 139, 200, 0.1);
+
+
+		&-frame {
+			flex-basis: 0;
+			flex-grow: 1;
+			max-width: 100%;
+			display: flex;
+			justify-content: flex-end;
+			padding: 10px 20px;
+		}
+
+		&-action {
+			ul {
+				@extend %listreset;
+				display: flex;
+				align-items: center;
+			}
+
+			li {
+				padding: 0 0 0 20px;
+
+				&:last-child {
+					@include media('>=tablet') {
+						display: none;
+					}
+				}
+			}
+
+			.badge {
+				background: $medium;
+				border: none;
+				border-radius: 50%;
+				color: $white;
+				display: block;
+				height: 32px;
+				width: 32px;
+				position: relative;
+				z-index: 0;
+
+				sup {
+					background: $error;
+					border-radius: 50%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 20px;
+					height: 20px;
+					font-size: 12px;
+					position: absolute;
+					top: -6px;
+					right: -6px;
+					z-index: 1;
+				}
+			}
+
+			.jsxNav {
+				background: $primary;
+				border: none;
+				border-radius: 2px;
+				margin: 0;
+				padding: 0;
+				height: 25px;
+				width: 36px;
+				position: relative;
+				z-index: 0;
+
+				&:before,
+				&:after,
+				.bar {
+					background: $white;
+					height: 2px;
+					position: absolute;
+					left: 5px;
+					right: 5px;
+					z-index: -1;
+				}
+
+				&:before {
+					content: '';
+					top: 5px;
+				}
+
+				.bar {
+					top: 50%;
+					transform: translateY(-50%);
+				}
+
+				&:after {
+					content: '';
+					bottom: 5px;
+				}
+			}
+
+			&--drop {
+				display: none;
+			}
+		}
+	}
+
+	&__logo {
+		background: $primary;
+		flex: 0 0 200px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 30px 0;
+
+		a {
+			@include inline-block;
+			width: 100px;
+			text-decoration: none;
+			font-weight: 800;
+			font-size: 24px;
+			color: $white;
+			.logo_bold{
+				display: flex;
+				position: fixed;
+			}
+		}
+
+		img {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+	}
+
+	&__main {
+		display: flex;
+	}
+}
+.worksidebar {
+	background: $primary;
+	flex: 0 0 200px;
+	color: $white;
+}
+.workboard {
+	flex-basis: 0;
+	flex-grow: 1;
+	max-width: 100%;
+	padding: 20px;
+
+	.subheading {
+		font-size: 16px;
+	}
+
+	.dropdown {
+		padding: 20px 0;
+		select {
+			border: none;
+			border-bottom: 1px solid $medium;
+			padding: 5px;
+			background:transparent ;
+			font-size: 14px;
+		}
+	}
+}
+
+.site__nav {
+	padding: 30px 0;
+	position: fixed;
+	.rotate{
+		transform: rotate(90deg);
+	}
+	> ul {
+		@extend 
+		%listreset;
+		// .knav.active {
+		// 	background: rgba(5, 68, 112, 0.5);
+		// 	color: $primary;
+		// 	margin-left: 0;
+		// }
+		// knav.active:before {
+		// 	content: "";
+		// 	width: 6px;
+		// 	height: 100%;
+		// 	background: $primary;
+		// }
+
+		// .knav.active span {
+		// 	color: $primary;
+		// 	margin-left: calc(1rem - 3px);
+		// }
+
+
+		> li {
+			> .knav {
+				position: relative;
+				width: 200px;
+				a {
+					color: $white;
+					display: block;
+					padding: 18px 50px 18px 30px;
+					// @include animate(background);
+
+					.icon {
+						font-size: 0.9rem;
+					}
+					span {
+						transition: all 500ms ease;
+					}
+
+					&:hover {
+						width: 100%;
+						background:lighten($primary, 8%);
+						border-right: 3px solid $white;
+
+						span {
+							// margin-left: 0.01rem;
+							// font-size: 0.92rem;
+						}
+					}
+				}
+
+				button {
+					bottom: 1rem;
+					left: 10rem;
+					position: absolute;
+					// display: none;
+					background: transparent;
+					border: none;
+					color: $white;
+				}
+			}
+
+			> .kdrop {
+				display: none;
+			}
+		}
+	}
+
+	.kdrop {
+		> ul {
+			@extend %listreset;
+			// position: relative;
+			padding:  0 0 8px 40px;
+
+			> li {
+				// position: absolute;
+				// bottom: 1rem;
+				// left: 3rem;
+				width: 100%;
+				border-left: 2px solid lighten($primary, 3%);
+				// padding: 1px 1px 1px 10px;
+				> a {
+					display: block;
+					padding: 15px 10px 15px 10px;
+					color: $white;
+					&:hover {
+						width: 100%;
+						background:lighten($primary, 8%);
+						border-right: 3px solid $white;
+
+						span {
+							// margin-left: 0.01rem;
+							// font-size: 0.92rem;
+						}
+					}
+				}
+			}
+		}
+	}
+}

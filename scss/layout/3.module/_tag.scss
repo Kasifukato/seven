@@ -1,0 +1,30 @@
+.tag {
+	@include font-base-b(14px, 1);
+	@include inline-block;
+	border-radius: 4px;
+	color: $white;
+	height: 26px;
+	padding: 6px 11px;
+	text-transform: uppercase;
+	// @include media('>=desktop') {
+	// 	font-size: 12px;
+	// 	padding: 4px 3px 1px;
+	// 	height: 19px;
+	// }
+
+	&-primary {
+		background: $primary;
+	}
+
+	&-success {
+		background: $success;
+	}
+
+	&-warning {
+		background: $warning;
+	}
+
+	&-danger {
+		background: $error;
+	}
+}

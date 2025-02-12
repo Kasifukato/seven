@@ -1,0 +1,29 @@
+html {
+	box-sizing: border-box;
+	-webkit-text-size-adjust: 100%;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+* {
+	max-height: 1000000px;
+}
+
+body {
+	background: $base-background-color;
+	color: $base-text-color;
+	font: 400 #{$font-size-base}/#{$line-height-base} $base-font-family;
+	min-width: $base-min-width;
+	margin: 0;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	// @include media('>=tablet') {
+	// 	font-size: 15px;
+	// }
+	// @include media('>=standard') {
+	// 	font-size: 16px;
+	// }
+}

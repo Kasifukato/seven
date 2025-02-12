@@ -1,0 +1,100 @@
+@import 'core/base/variables';
+@import 'core/base/breakpoint';
+@import 'core/base/include-media';
+@import 'core/base/functions';
+@import 'core/base/mixins';
+@import 'vendors/font-face/font-face';
+
+// ---------------------------------------------
+// |To seperate header and footer,				|
+// |create new core & normalization,			|
+// |enable header, nav, footer & req. vendors	|
+// ---------------------------------------------
+
+@import 'core/base/core';
+@import 'core/base/normalize';
+@import 'vendors/font-icon/icomoon';
+
+
+@import 'core/grid/grid-framework';
+@import 'core/grid/grid';
+@import 'core/grid/helpers';
+@import 'core/grid/utilities';
+
+@import 'core/forms/form-defaults';
+@import 'core/forms/form-styling';
+// @import 'core/forms/form-number';
+@import 'core/forms/form-options';
+@import 'core/forms/form-loader';
+
+@import 'core/typography/typography';
+// @import 'core/typography/reviser';
+
+
+@import 'layout/3.module/global';
+@import 'layout/3.module/button';
+@import 'layout/3.module/dashpanel';
+@import 'layout/3.module/pagination';
+// @import 'layout/3.module/text-color';
+// @import 'layout/3.module/alert';
+// @import 'layout/3.module/breadcrumb';
+// @import 'layout/3.module/rating';
+// @import 'layout/3.module/toast';
+@import 'layout/3.module/table';
+// @import 'layout/3.module/tag';
+
+
+
+// @import 'vendors/slick/slick';
+// @import 'vendors/slick/slick-theme';
+@import 'vendors/magnific-popup/settings';
+@import 'vendors/magnific-popup/magnific-popup';
+// @import 'vendors/daterangepicker/daterangepicker';
+
+
+@import 'layout/1.header/site-header';
+// @import 'layout/1.header/site-search';
+
+// @import 'layout/2.nav/nav';
+
+// @import 'layout/4.unit/prime';
+// @import 'layout/4.unit/headline';
+// @import 'layout/4.unit/package';
+// @import 'layout/4.unit/sign';
+// @import 'layout/4.unit/bracket';
+// @import 'layout/4.unit/pack';
+// @import 'layout/4.unit/bundle';
+// @import 'layout/4.unit/packet';
+// @import 'layout/4.unit/journal';
+// @import 'layout/4.unit/poster';
+// @import 'layout/4.unit/postcard';
+// @import 'layout/4.unit/carton';
+// @import 'layout/4.unit/subscription';
+// @import 'layout/4.unit/excellence';
+// @import 'layout/4.unit/archive';
+// @import 'layout/4.unit/showcase';
+// @import 'layout/4.unit/bestdeal';
+// @import 'layout/4.unit/promocode';
+// @import 'layout/4.unit/page-banner';
+
+
+// @import 'layout/5.pages/home';
+@import 'layout/5.pages/login';
+@import 'layout/5.pages/reset';
+@import 'layout/5.pages/signup';
+@import 'layout/5.pages/create';
+@import 'layout/5.pages/dashboard';
+@import 'layout/5.pages/inventory';
+@import 'layout/5.pages/product';
+@import 'layout/5.pages/orders';
+@import 'layout/5.pages/inview';
+@import 'layout/5.pages/report';
+@import 'layout/5.pages/profile';
+@import 'layout/5.pages/media';
+@import 'layout/5.pages/salereport';
+// @import 'layout/5.pages/single';
+// @import 'layout/5.pages/fancy-modal';
+// @import 'layout/5.pages/404';
+
+@import 'layout/6.footer/site-footer';
+// @import 'layout/6.footer/linker-panel';

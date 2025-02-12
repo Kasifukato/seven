@@ -1,0 +1,26 @@
+.overall-info {
+	.site-panel {
+		display: flex;
+		justify-content: flex-end;
+	}
+}
+.form__action {
+	display: flex;
+	align-items: center;
+	border-radius: 5px;
+	font-size: 14px;
+	height: 30px;
+	justify-content: flex-end;
+	padding: 0 0 0 20px;
+
+	.tertiary-line {
+		height: 30px;
+		font-size: 13px;
+		padding: 5px 20px;
+	}
+	.primary-tint {
+		height: 30px;
+		font-size: 13px;
+		padding: 5px 20px;
+	}
+}

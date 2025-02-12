@@ -1,0 +1,194 @@
+.pull-right {
+	float: right !important;
+}
+
+.pull-left {
+	float: left !important;
+}
+
+
+// Toggling content
+// -------------------------
+
+// Note: Deprecated .hide in favor of .hidden or .sr-only (as appropriate) in v3.0.1
+.hide {
+	display: none !important;
+}
+
+.show {
+	display: block !important;
+}
+
+.invisible {
+	visibility: hidden;
+}
+
+.text-hide {
+	@include hide-text;
+}
+
+
+// Hide from screenreaders and browsers
+//
+// Credit: HTML5 Boilerplate
+
+.hidden {
+	display: none !important;
+}
+
+.visible-xs {
+	display: none !important;
+}
+
+.visible-sx {
+	display: none !important;
+}
+
+.visible-sm {
+	display: none !important;
+}
+
+.visible-md {
+	display: none !important;
+}
+
+.visible-sd {
+	display: none !important;
+}
+
+.visible-lg {
+	display: none !important;
+}
+
+.visible-xs {
+	@include media ('<phone') {
+		display: block !important;
+	}
+}
+
+.visible-sx {
+	@include media ('>=phone', '<tablet') {
+		display: block !important;
+	}
+}
+
+.visible-sm {
+	@include media ('>=tablet', '<desktop') {
+		display: block !important;
+	}
+}
+
+.visible-md {
+	@include media ('>=desktop', '<standard') {
+		display: block !important;
+	}
+}
+
+.visible-sd {
+	@include media ('>=standard', '<widescreen') {
+		display: block !important;
+	}
+}
+
+.visible-lg {
+	@include media ('>=widescreen') {
+		display: block !important;
+	}
+}
+
+.hidden-xs {
+	@include media ('<phone') {
+		display: none !important;
+	}
+}
+
+.hidden-sx {
+	@include media ('>=phone', '<tablet') {
+		display: none !important;
+	}
+}
+
+.hidden-sm {
+	@include media ('>=tablet', '<desktop') {
+		display: none !important;
+	}
+}
+
+.hidden-md {
+	@include media ('>=desktop', '<standard') {
+		display: none !important;
+	}
+}
+
+.hidden-sd {
+	@include media ('>=standard', '<widescreen') {
+		display: none !important;
+	}
+}
+
+.hidden-lg {
+	@include media ('>=widescreen') {
+		display: none !important;
+	}
+}
+
+.order-1 {
+	@include media('>=tablet') {
+		order: 1;
+	}
+}
+.order-2 {
+	@include media('>=tablet') {
+		order: 2;
+	}
+}
+.order-3 {
+	@include media('>=tablet') {
+		order: 3;
+	}
+}
+.order-4 {
+	@include media('>=tablet') {
+		order: 4;
+	}
+}
+.order-5 {
+	@include media('>=tablet') {
+		order: 5;
+	}
+}
+.order-6 {
+	@include media('>=tablet') {
+		order: 6;
+	}
+}
+.order-7 {
+	@include media('>=tablet') {
+		order: 7;
+	}
+}
+.order-8 {
+	@include media('>=tablet') {
+		order: 8;
+	}
+}
+.order-9 {
+	@include media('>=tablet') {
+		order: 9;
+	}
+}
+.order-10 {
+	@include media('>=tablet') {
+		order: 10;
+	}
+}
+.order-11 {
+	@include media('>=tablet') {
+		order: 11;
+	}
+}
+.order-12 {
+	@include media('>=tablet') {
+		order: 12;
+	}
+}

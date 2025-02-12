@@ -1,0 +1,181 @@
+.site {
+	&__label {
+		background: $primary;
+		display: flex;
+		align-items: center;
+		// padding: 5px 30px;
+		box-shadow: 0 0.5rem 0.5rem rgba(222, 224, 226, 0.3);
+	}
+}
+.tpl--access {
+	background: $primary;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 85vh;
+
+}
+.access {
+	&__portal{
+		background: $white;
+		padding:23px;
+		border-radius: 5px;
+		width: 300px;
+		box-shadow: 0 2rem 3rem rgba(5, 68, 112, 0.5);
+		@include media('>=420px') {
+			width: 320px;
+		}
+
+		.mini__label {
+			display: flex;
+			flex-direction: row-reverse;
+			margin: 0 auto 20px;
+
+			.label{
+				padding: 0 0 0 5px;
+			} 
+
+		}
+
+		.main__logo {
+			margin: 0 auto 20px;
+			width: 126px;
+
+
+			a {
+				display: block;
+			}
+
+			img {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+		}
+	}
+
+	&__form {
+		.form {
+			&__module {
+				margin: 0 0 15px;
+				position: relative;
+				z-index: 0;
+			}
+			&__Label {
+				background: $white;
+				padding: 0 6px;
+				position: absolute;
+				top: -13px;
+				left: 10px;
+				z-index: 1;
+			}
+			&__action {
+				justify-content: center;
+				padding: 0;
+
+				li {
+					width: 100%;
+					list-style: none;
+				}
+
+				.button {
+					border-radius: 4px;
+					width: 100%;
+					text-transform: uppercase;
+				}
+			}
+		}
+		.form__remb {
+			padding: 0;
+			margin: 0;
+			color: $primary;
+			display: flex;
+			align-items: center;
+			input[type="checkbox"] {
+				border: 3px;
+			}
+		}
+		.form__rufp {
+			display: flex;
+			justify-content: space-between;
+			margin: 0 0 15px 0;
+			font-size: 13px;
+			letter-spacing: -0.5px;
+		}
+		._ab25 {
+			padding: 10px 0 0;
+			margin: 0 0 20px 0;
+			font-size: 13px;
+			color: $primary;
+			display: flex;
+			justify-content: center;
+			letter-spacing: -0.5px;
+			a {
+				color: #047AA4;
+			}
+			._ap3a {
+				color: #047AA4;
+			}
+		}
+
+		.beaf {
+			display:flex;
+			justify-content: center;
+			align-items: center;
+			color: #777;
+			margin: 0 0 70px 0;
+			&:before
+			{
+				content: "";
+				display:flex;
+				width: 110px;
+				height: 0.1em;
+				background: #bababa;
+				position: relative;
+				margin: 0 20px 0 0;
+
+			}
+			&:after {
+				content: "";
+				display:flex;
+				width: 110px;
+				height: 0.1em;
+				background: #bababa;
+				position: relative;
+				margin: 0 0 0 20px;
+
+			}
+		}
+		._fp26 {
+			padding: 20px 0 0 ;
+			margin: 0 0 70px 0;
+			font-size: 15px;
+			color: $primary;
+			display: flex;
+			justify-content: center;
+			letter-spacing: -0.5px;
+			a {
+				text-decoration: none;
+			}
+			._fpaaco {
+				color: $primary;
+			}
+		}
+	}
+
+	&__form-title {
+		.form-heading {
+			font-size: 24px;
+			margin: 0 0 10px;
+			font-weight: 400;
+		}
+
+		.sub-heading {
+			font-size: 13px;
+			// text-align: center;
+			margin: 0 0 30px;
+			font-weight: 400;
+		}
+	}
+}

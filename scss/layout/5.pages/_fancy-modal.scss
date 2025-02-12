@@ -1,0 +1,48 @@
+.modal {
+	&-title {
+		background: $primary;
+		color: $white;
+		padding: 12px 40px 12px 15px;
+		line-height: 1;
+		position: relative;
+		z-index: 1;
+		@include media('>=desktop') {
+			padding: 15px 50px 15px 20px;
+		}
+
+		.h1 {
+			@include font-base-b(20px, 1);
+			color: $white;
+			margin: 0 0 5px;
+			text-transform: uppercase;
+		}
+
+		.meta {
+			font-size: 80%;
+			font-style: italic;
+		}
+
+		.modal-close {
+			background: none;
+			border: none;
+			color: $white;
+			line-height: 1;
+			width: 15px;
+			height: 15px;
+			padding: 0;
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			right: 15px;
+			transform: translateY(-50%);
+			z-index: 1;
+		}
+	}
+
+	&-box {
+		padding: 15px 15px;
+		@include media('>=tablet') {
+			padding: 15px 15px;
+		}
+	}
+}

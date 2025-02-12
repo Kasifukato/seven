@@ -1,0 +1,220 @@
+// Grid system
+//
+// Generate semantic grid columns with these mixins.
+
+.container {
+	margin-right: auto;
+	margin-left: auto;
+	padding-left:  ceil($grid-gutter-xs);
+	padding-right: floor($grid-gutter-xs);
+	@include media('>=phone') {
+		padding-left:  ceil($grid-gutter-sx);
+		padding-right: floor($grid-gutter-sx);
+	}
+	@include media('>=tablet') {
+		padding-left:  ceil($grid-gutter-sm);
+		padding-right: floor($grid-gutter-sm);
+	}
+	@include media('>=desktop') {
+		padding-left:  ceil($grid-gutter-md);
+		padding-right: floor($grid-gutter-md);
+	}
+	@include media('>=standard') {
+		padding-left:  ceil($grid-gutter-md);
+		padding-right: floor($grid-gutter-md);
+	}
+	@include media('>=widescreen') {
+		padding-left:  ceil($grid-gutter-lg / 2);
+		padding-right: floor($grid-gutter-lg / 2);
+	}
+}
+
+// Row
+// Rows contain and clear the floats of your columns.
+// row float
+// .row {
+// 	@include make-row;
+// 	@extend %clearfix;
+// 	@include media('>=phone') {
+// 		@include make-row($grid-gutter-sx);
+// 	}
+// 	@include media('>=tablet') {
+// 		@include make-row($grid-gutter-sm);
+// 	}
+// 	@include media('>=desktop') {
+// 		@include make-row($grid-gutter-md);
+// 	}
+// 	@include media('>=widescreen') {
+// 		@include make-row($grid-gutter-lg);
+// 	}
+
+// 	.col {
+// 		position: relative;
+// 		float: left;
+// 		min-height: 1px;
+// 		padding-left:  ceil(($grid-gutter-xs / 2));
+// 		padding-right: floor(($grid-gutter-xs / 2));
+// 		@include media('>=phone') {
+// 			padding-left:  ceil(($grid-gutter-sx / 2));
+// 			padding-right: floor(($grid-gutter-sx / 2));
+// 		}
+// 		@include media('>=tablet') {
+// 			padding-left:  ceil(($grid-gutter-sm / 2));
+// 			padding-right: floor(($grid-gutter-sm / 2));
+// 		}
+// 		@include media('>=desktop') {
+// 			padding-left:  ceil(($grid-gutter-md / 2));
+// 			padding-right: floor(($grid-gutter-md / 2));
+// 		}
+// 		@include media('>=widescreen') {
+// 			padding-left:  ceil(($grid-gutter-lg / 2));
+// 			padding-right: floor(($grid-gutter-lg / 2));
+// 		}
+// 	}
+// }
+
+// // row inline-block
+// .row-in {
+// 	@include make-row;
+// 	@include font(0, 0);
+// 	@include media('>=phone') {
+// 		@include make-row($grid-gutter-sx);
+// 	}
+// 	@include media('>=tablet') {
+// 		@include make-row($grid-gutter-sm);
+// 	}
+// 	@include media('>=desktop') {
+// 		@include make-row($grid-gutter-md);
+// 	}
+// 	@include media('>=widescreen') {
+// 		@include make-row($grid-gutter-lg);
+// 	}
+
+// 	.col {
+// 		@include inline-block;
+// 		@include font;
+// 		padding-left:  ceil(($grid-gutter-xs / 2));
+// 		padding-right: floor(($grid-gutter-xs / 2));
+// 		@include media('>=phone') {
+// 			padding-left:  ceil(($grid-gutter-sx / 2));
+// 			padding-right: floor(($grid-gutter-sx / 2));
+// 		}
+// 		@include media('>=tablet') {
+// 			padding-left:  ceil(($grid-gutter-sm / 2));
+// 			padding-right: floor(($grid-gutter-sm / 2));
+// 		}
+// 		@include media('>=desktop') {
+// 			padding-left:  ceil(($grid-gutter-md / 2));
+// 			padding-right: floor(($grid-gutter-md / 2));
+// 		}
+// 		@include media('>=widescreen') {
+// 			padding-left:  ceil(($grid-gutter-lg / 2));
+// 			padding-right: floor(($grid-gutter-lg / 2));
+// 		}
+// 	}
+// }
+
+.row-zr {
+	@include media('>=tablet') {
+		display: flex;
+		flex-wrap: wrap;
+		flex: 0 1 auto;
+	}
+
+	> .col {
+		@include media('>=tablet') {
+			flex: 0 0 auto;
+		}
+	}
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 0 1 auto;
+	@include make-row;
+	@include media('>=phone') {
+		@include make-row($grid-gutter-sx);
+	}
+	@include media('>=tablet') {
+		@include make-row($grid-gutter-sm);
+	}
+	@include media('>=desktop') {
+		@include make-row($grid-gutter-md);
+	}
+	@include media('>=standard') {
+		@include make-row($grid-gutter-sd);
+	}
+	@include media('>=widescreen') {
+		@include make-row($grid-gutter-lg);
+	}
+
+	> .col {
+		flex: 0 0 auto;
+		padding-left:  ceil(($grid-gutter-xs / 2));
+		padding-right: floor(($grid-gutter-xs / 2));
+		@include media('>=phone') {
+			padding-left:  ceil(($grid-gutter-sx / 2));
+			padding-right: floor(($grid-gutter-sx / 2));
+		}
+		@include media('>=tablet') {
+			padding-left:  ceil(($grid-gutter-sm / 2));
+			padding-right: floor(($grid-gutter-sm / 2));
+		}
+		@include media('>=desktop') {
+			padding-left:  ceil(($grid-gutter-md / 2));
+			padding-right: floor(($grid-gutter-md / 2));
+		}
+		@include media('>=standard') {
+			padding-left:  ceil(($grid-gutter-sd / 2));
+			padding-right: floor(($grid-gutter-sd / 2));
+		}
+		@include media('>=widescreen') {
+			padding-left:  ceil(($grid-gutter-lg / 2));
+			padding-right: floor(($grid-gutter-lg / 2));
+		}
+	}
+}
+
+.col-fluid {
+	flex-basis: 0;
+	flex-grow: 1;
+	min-height: 1;
+	max-width: 100%;
+}
+
+
+// Columns
+// Common styles for small and large grid columns
+// @include make-grid-columns;
+
+// Columns, offsets, pushes, and pulls for extra small devices like smartphones.
+@include make-grid(xs);
+
+// Small grid
+// Columns, offsets, pushes, and pulls for the small device range, from phones to tablets.
+@include media('>=phone') {
+	@include make-grid(sx);
+}
+
+@include media('>=tablet') {
+	@include make-grid(sm);
+}
+
+// Medium grid
+// Columns, offsets, pushes, and pulls for the desktop device range.
+@include media('>=desktop') {
+	@include make-grid(md);
+}
+
+// Standard grid
+// Columns, offsets, pushes, and pulls for the desktop device range.
+@include media('>=standard') {
+	@include make-grid(sd);
+}
+
+// Large grid
+// Columns, offsets, pushes, and pulls for the large desktop device range.
+@include media('>=widescreen') {
+	@include make-grid(lg);
+}

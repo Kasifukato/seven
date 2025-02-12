@@ -1,0 +1,56 @@
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+/* ==========================================
+Single-colored icons can be modified like so:
+.icon-name {
+  font-size: 32px;
+  color: red;
+}
+========================================== */
+
+.icon-toggle-on {
+  width: 1.142578125em;
+}
+
+.icon-toggle-off {
+  width: 1.142578125em;
+}
+
+.icon-order {
+  width: 0.90625em;
+}
+
+.icon-receipt {
+  width: 0.90625em;
+}
+
+.icon-setting {
+  width: 1.15625em;
+}
+
+.icon-evaluation {
+  width: 0.90625em;
+}
+
+.icon-notification {
+  width: 0.8125em;
+}
+
+.icon-user {
+  width: 1.0625em;
+}
+
+.icon-ellipses {
+  width: 0.25em;
+}
+
+.icon-teacher {
+  width: 0.7998046875em;
+}

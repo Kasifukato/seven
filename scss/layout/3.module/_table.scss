@@ -1,0 +1,113 @@
+.tbl-wrap {
+	table {
+		background: $white;
+		border-collapse: collapse;
+		border: none;
+		// border: {
+		// 	width: 0 0 1px;
+		// 	style: solid;
+		// 	color: lighten($default, 64.31);
+		// };
+		font-size: 14px;
+		table-layout: fixed;
+		width: 100%;
+		@include media('>=tablet') {
+			border-width: 1px;
+		}
+	}
+
+	table,
+	tr, th, td, tbody, tfoot {
+		@include media('<tablet') {
+			display: block;
+		}
+	}
+
+	th, td {
+		border: none;
+		// border: {
+		// 	width: 1px 1px 0;
+		// 	style: solid;
+		// 	color: lighten($default, 64.31);
+		// };
+		padding: 10px 12px;
+		@include media('>=tablet') {
+			border-width: 1px;
+			// padding: 8px 25px;
+		}
+	}
+
+	thead {
+		@include media('<tablet') {
+			display: none;
+		}
+	}
+
+	tbody {
+		tr {
+			// border: {
+			// 	width: 1px;
+			// 	style: solid; 
+			// 	color: lighten($default, 64.31);
+			// };
+			&:nth-child(even) {
+				// background: #f6f6f6;
+				@include media('>=tablet') {
+					// background: #f8f8f8;
+				}
+			}
+
+			&:hover {
+				background: rgba($primary, 0.1);
+			}
+		}
+
+		.dtcheck {
+			width: 60px;
+		}
+		.dtser {
+			width: 60px;
+		}
+	}
+
+	th {
+		// background: $default;
+		background: $primary;
+		color: $white;
+		color: $default;
+		@include media('>=tablet') {
+			background: #ededed;
+			// padding-right: 220px;
+		}
+	}
+
+	td {
+		vertical-align: top;
+		@include media('<tablet') {
+			position: relative;
+			// padding-left: 220px;
+		}
+		@include media('<phone') {
+			padding-left: 140px;
+		}
+
+		&:before {
+			@include media('<tablet') {
+				background: #ededed;
+				font-weight: 500;
+				border-right: 1px solid lighten($default, 64.31);
+				content: attr(data-th);
+				color: $primary;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 200px;
+				bottom: 0;
+				padding: 10px 12px;
+			}
+			@include media('<phone') {
+				width: 130px;
+			}
+		}
+	}
+}

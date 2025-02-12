@@ -1,0 +1,68 @@
+.workboard {
+	padding: 20px;
+	min-height: 100vh;
+
+	&__title {
+		@include font-base-b (22px);
+	}
+}
+
+.workpanel {
+	padding: 14px 0;
+
+	&__heading {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 0 6px;
+	}
+
+	&__regs-date {
+		background: $light;
+		padding: 12px;
+		border-radius: 5px;
+	}
+
+	&__title {
+		@include font-base-sb(20px);
+		text-transform: uppercase;
+	}
+
+	&__sub-header {
+		width: 100%;
+		background-color: $primary;
+	}
+
+	&__form {
+		.selection__result {
+			margin: 0 0 10px 0;
+		}
+		.questionaries__showcase {
+			margin: 0 0 10px 0;
+		}
+		.form {
+			&__option {
+				margin: 0 0 20px;
+				padding: 0 20px 0 0;
+			}
+
+			&__submit {
+				justify-content: flex-end;
+			}
+		}
+	}
+}
+.button {
+	border-radius: 5px;
+}
+.select__qst {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	.button {
+		height: 28px;
+		border-radius: 30px;
+		padding: 0;
+		font-size: 14px;
+	}
+}
