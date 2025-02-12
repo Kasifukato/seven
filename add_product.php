@@ -1,134 +1,132 @@
 <?php
-$page_title = 'Add User';
+$page_title = 'Add Product';
 require_once('includes/load.php');
 // Checkin What level user has permission to view this page
-page_require_level(1);
-$groups = find_all('user_groups');
+page_require_level(2);
+$all_categories = find_all('categories');
+$all_photo = find_all('media');
 
 // Handle Discard button click
 if (isset($_POST['discard'])) {
-    // Redirect to users.php
-    redirect('users.php', false);
+    // Redirect to product.php
+    redirect('product.php', false);
     exit;
 }
 
-// Handle Add User button click
-if (isset($_POST['add_user'])) {
-    $req_fields = array('full-name', 'username', 'password', 'level');
+if (isset($_POST['add_product'])) {
+    // Required fields for validation
+    $req_fields = array('product-title', 'product-categorie', 'product-quantity', 'buying-price', 'saleing-price');
     validate_fields($req_fields);
 
     if (empty($errors)) {
-        $name = remove_junk($db->escape($_POST['full-name']));
-        $username = remove_junk($db->escape($_POST['username']));
-        $password = remove_junk($db->escape($_POST['password']));
-        $user_level = (int)$db->escape($_POST['level']);
+        // Sanitize form inputs
+        $p_name  = remove_junk($db->escape($_POST['product-title']));
+        $p_cat   = remove_junk($db->escape($_POST['product-categorie']));
+        $p_qty   = remove_junk($db->escape($_POST['product-quantity']));
+        $p_buy   = remove_junk($db->escape($_POST['buying-price']));
+        $p_sale  = remove_junk($db->escape($_POST['saleing-price']));
+        $p_barcode = remove_junk($db->escape($_POST['product-barcode']));
+        $media_id = isset($_POST['product-photo']) && !empty($_POST['product-photo']) ? remove_junk($db->escape($_POST['product-photo'])) : 0;
+        $date    = make_date();
 
-        // Check if username already exists (case-insensitive)
-        $username_check = "SELECT * FROM users WHERE LOWER(username) = LOWER('{$username}')";
-        $result = $db->query($username_check);
-        if ($result->num_rows > 0) {
-            $msg = "Username already exists. Please choose a different username.";
-            $session->msg('d', $msg);
-            redirect('add_user.php', false);
+        // Validate prices are positive integers
+        if (!ctype_digit($p_buy) || !ctype_digit($p_sale)) {
+            $session->msg('d', 'Prices must be positive whole numbers.');
+            redirect('add_product.php', false);
             exit;
         }
 
-        // If user role is supplier (level 4), perform additional checks
-        if ($user_level == 4) {
-            // Check if user with this name already exists as a supplier user
-            $existing_supplier_user = "SELECT * FROM users WHERE LOWER(name) = LOWER('{$name}') AND user_level = 4";
-            $user_result = $db->query($existing_supplier_user);
-            if ($user_result->num_rows > 0) {
-                $msg = "A supplier user account already exists with this name: " . $name;
-                $session->msg('d', $msg);
-                redirect('add_user.php', false);
-                exit;
-            }
+        // Check if product name already exists
+        $name_check = "SELECT * FROM products WHERE LOWER(name) = LOWER('{$p_name}')";
+        $name_result = $db->query($name_check);
+        if ($name_result->num_rows > 0) {
+            $session->msg('d', 'Product name already exists. Please use a different name.');
+            redirect('add_product.php', false);
+            exit;
+        }
 
-            // Check if supplier exists in suppliers table (case-insensitive)
-            $supplier_check = "SELECT * FROM suppliers WHERE LOWER(name) = LOWER('{$name}')";
-            $result = $db->query($supplier_check);
-            if ($result->num_rows == 0) {
-                $msg = 'Supplier "' . $name . '" does not exist in the suppliers database. Please add supplier first.';
-                $session->msg('d', $msg);
-                redirect('add_user.php', false);
+        // Check if barcode already exists (if provided)
+        if (!empty($p_barcode)) {
+            $barcode_check = "SELECT * FROM products WHERE barcode = '{$p_barcode}'";
+            $barcode_result = $db->query($barcode_check);
+            if ($barcode_result->num_rows > 0) {
+                $session->msg('d', 'Barcode already exists. Please use a different barcode.');
+                redirect('add_product.php', false);
                 exit;
             }
         }
 
-        $password = sha1($password);
-        
-        // Set current timestamp for last_login
-        $current_time = date('Y-m-d H:i:s');
-
-        $query = "INSERT INTO users (";
-        $query .= "name, username, password, user_level, status, last_login, role";
-        $query .= ") VALUES (";
-        $query .= "'{$name}', '{$username}', '{$password}', '{$user_level}', '1', '{$current_time}', ";
-        
-        // Set role based on user_level
-        switch($user_level) {
-            case 1:
-                $query .= "'Admin'";
-                break;
-            case 2:
-                $query .= "'Special'";
-                break;
-            case 3:
-                $query .= "'User'";
-                break;
-            case 4:
-                $query .= "'Supplier'";
-                break;
-            default:
-                $query .= "'User'";
+        // Validate quantity is not negative
+        if ($p_qty <= 0) {
+            $session->msg('d', 'Quantity must be greater than zero.');
+            redirect('add_product.php', false);
+            exit;
         }
-        
-        $query .= ")";
 
+        // Validate barcode format (8-12 digits only)
+        if (!empty($p_barcode)) {  // Only validate if barcode is provided
+            if (!preg_match('/^\d{8,12}$/', $p_barcode)) {
+                $session->msg('d', 'Barcode must be between 8 and 12 digits and contain only numbers.');
+                redirect('add_product.php', false);
+                exit;
+            }
+        }
+
+        // SQL Query to insert product
+        $query = "INSERT INTO products (name, barcode, quantity, buy_price, sale_price, categorie_id, media_id, date) 
+                  VALUES ('{$p_name}', '{$p_barcode}', '{$p_qty}', '{$p_buy}', '{$p_sale}', '{$p_cat}', '{$media_id}', '{$date}')";
+
+        // Execute the query
         if ($db->query($query)) {
-            // Success
-            $msg = "User account has been created!";
-            $session->msg('s', $msg);
-            redirect('add_user.php', false);
+            $session->msg('s', "Product added successfully.");
+            redirect('add_product.php', false);
         } else {
-            // Failed
-            $msg = 'Sorry, failed to create account!';
-            $session->msg('d', $msg);
-            redirect('add_user.php', false);
+            $session->msg('d', 'Sorry, failed to add the product.');
+            redirect('product.php', false);
         }
     } else {
+        // Display validation errors
         $session->msg("d", $errors);
-        redirect('add_user.php', false);
+        redirect('add_product.php', false);
     }
 }
 ?>
+
 <?php include_once('layouts/header.php'); ?>
 <div class="row">
     <div class="col-md-12">
         <?php echo display_msg($msg); ?>
     </div>
 </div>
+
 <div class="workboard__heading">
-    <h1 class="workboard__title">Users</h1>
+    <h1 class="workboard__title">Products</h1>
 </div>
-<div class="workpanel">
+
+<div class="workpanel inventorypg">
     <div class="overall-info">
-        <form class="general--form access__form" method="post" action="add_user.php">
-            <div class="row">
-                <div class="col xs-12">
+        <div class="row">
+            <div class="col xs-12">
+                <form class="general--form access__form info" method="post" action="add_product.php" class="clearfix">
                     <div class="info">
                         <div class="row">
                             <div class="col xs-12 sx-6">
-                                <span>New User</span>
+                                <span>New Product</span>
                             </div>
                             <div class="col xs-12 sx-6">
                                 <div class="site-panel">
                                     <div class="form__action">
-                                        <input type="submit" name="discard" class="button tertiary-line" value="Discard">
+                                        <input
+                                        type="submit"
+                                        class="button tertiary-line"
+                                        value="Discard" name="discard" />
                                     </div>
                                     <div class="form__action">
-                                        <input type="submit" name="add_user" class="button primary-tint" value="Save">
+                                        <input
+                                        type="submit"
+                                        class="button primary-tint"
+                                        name="add_product"
+                                        value="Save" />
                                     </div>
                                 </div>
                             </div>
@@ -137,46 +135,103 @@ if (isset($_POST['add_user'])) {
                     <div class="row">
                         <div class="col xs-12 sm-3">
                             <div class="form__module">
-                                <label for="name" class="form__label">Name</label>
+                                <label for="brcode" class="form__label">Barcode (8-12 digits)</label>
                                 <div class="form__set">
-                                    <input type="text" class="form-control" name="full-name" id="name" placeholder="Name">
+                                    <input type="text" 
+                                           id="brcode" 
+                                           name="product-barcode" 
+                                           placeholder="12345678" 
+                                           pattern="\d{8,12}" 
+                                           title="Barcode must be between 8 and 12 digits"/>
                                 </div>
                             </div>
                         </div>
                         <div class="col xs-12 sm-3">
                             <div class="form__module">
-                                <label for="username" class="form__label">Username</label>
+                                <label for="prodname" class="form__label">Product Name</label>
                                 <div class="form__set">
-                                    <input type="text" class="form-control" name="username" id="username" placeholder="Username">
+                                    <input
+                                    type="text"
+                                    id="prodname"
+                                    name="product-title"
+                                    placeholder="Product Title" />
                                 </div>
                             </div>
                         </div>
                         <div class="col xs-12 sm-3">
                             <div class="form__module">
-                                <label for="password" class="form__label">Password</label>
+                                <label for="prodcat" class="form__label">Category</label>
+                                <select class="form-control" name="product-categorie">
+                                    <option value="">Select Product Category</option>
+                                    <?php foreach ($all_categories as $cat): ?>
+                                        <option value="<?php echo (int)$cat['id'] ?>">
+                                            <?php echo $cat['name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col xs-12 sm-3">
+                            <div class="form__module">
+                                <label for="prodphoto" class="form__label">Product Photo</label>
+                                <select class="form-control" name="product-photo">
+                                    <option value="">Select Product Photo</option>
+                                    <?php foreach ($all_photo as $photo): ?>
+                                        <option value="<?php echo (int)$photo['id'] ?>">
+                                            <?php echo $photo['file_name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col xs-12 sm-3">
+                            <div class="form__module">
+                                <label for="prodbuying" class="form__label">Buying Price</label>
                                 <div class="form__set">
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                                    <input
+                                    type="number"
+                                    name="buying-price"
+                                    placeholder="Buying Price"
+                                    id="prodbuying"
+                                    min="1"
+                                    step="1"
+                                    onkeydown="return event.keyCode !== 190"
+                                    oninput="this.value = Math.abs(this.value.replace(/[^\d]/g, ''))" />
                                 </div>
                             </div>
                         </div>
                         <div class="col xs-12 sm-3">
                             <div class="form__module">
-                                <label for="level" class="form__label">User Role</label>
+                                <label for="prodselling" class="form__label">Selling Price</label>
                                 <div class="form__set">
-                                    <select class="form-control" name="level" id="level">
-                                        <?php foreach ($groups as $group): ?>
-                                            <option value="<?php echo $group['group_level']; ?>">
-                                                <?php echo ucwords($group['group_name']); ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <input
+                                    type="number"
+                                    name="saleing-price"
+                                    placeholder="Selling Price"
+                                    id="prodselling"
+                                    min="1"
+                                    step="1"
+                                    onkeydown="return event.keyCode !== 190"
+                                    oninput="this.value = Math.abs(this.value.replace(/[^\d]/g, ''))" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col xs-12 sm-3">
+                            <div class="form__module">
+                                <label for="prodqty" class="form__label">Quantity</label>
+                                <div class="form__set">
+                                    <input
+                                    type="number"
+                                    name="product-quantity"
+                                    placeholder="Product Quantity"
+                                    id="prodqty"
+                                    min="1" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
+
 <?php include_once('layouts/footer.php'); ?>
