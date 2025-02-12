@@ -1,23 +1,45 @@
-<?php $user = current_user(); 
-      // $notifications = get_user_notifications($user['id']);
-
+<?php
 require_once('includes/load.php');
-      
+
+// Start session (only if not already active)
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Fetch current user
+$user = current_user();
+$notification_count = 0;  // Initialize the notification count
+
+// Your database query
 $query = "
 SELECT 
     products.name, 
+    products.id, 
     products.quantity, 
-    categories.threshold 
+    categories.threshold,
+    suppliers.name AS supplier_name 
 FROM products 
 INNER JOIN categories 
     ON products.categorie_id = categories.id 
+INNER JOIN suppliers 
+    ON products.supplier_id = suppliers.id  
 WHERE products.quantity <= categories.threshold
 ";
 
+
 $result = $db->query($query);
 
-$notification_count = $result->num_rows;      
+// Check if the query was successful
+if ($result && $result->num_rows > 0) {
+    // Set the notification count if results are found
+    $notification_count = $result->num_rows;
+} else {
+    // If no results, it will stay 0
+    $notification_count = 0;
+}
 ?>
+
+
       <!DOCTYPE html>
       <html lang="en">
 
@@ -123,11 +145,21 @@ $notification_count = $result->num_rows;
           
           <ul class="notification_dropdown-list" id = "notification_dropdown">
           <?php
-          // Assuming $result is the result of your query
-          while ($row = mysqli_fetch_assoc($result)) {
-              echo "<li class = 'notification_item'>" . $row['name'] . " is below the threshold. Current Quantity: " . $row['quantity'] . "</li>";
-          }
-          ?>
+while ($row = mysqli_fetch_assoc($result)) {
+  echo "<li class='notification_item'>" 
+       . htmlspecialchars($row['name']) . " is below threshold. Quantity: " 
+       . (int)$row['quantity'] 
+       . " <a href='add_orders.php?supplier=" . urlencode($row['supplier_name']) 
+       . "&product=" . urlencode($row['name']) 
+       . "' class='send_order_button'>Send Order</a></li>";
+}
+?>
+<script>
+function redirectToOrder(productId, productName) {
+    window.location.href = "add_order.php?product_id=" + productId + "&product_name=" + encodeURIComponent(productName);
+}
+</script>
+
           </ul>
         </div>
         <div class="profile-dropdown">
@@ -163,15 +195,13 @@ $notification_count = $result->num_rows;
     <main id="site__main" class="site__main">
       <div class="sidebar worksidebar">
         <?php if ($user['user_level'] === '1'): ?>
-          <!-- admin menu -->
           <?php include_once('admin_menu.php'); ?>
         <?php elseif ($user['user_level'] === '2'): ?>
-          <!-- Special user -->
           <?php include_once('special_menu.php'); ?>
-
         <?php elseif ($user['user_level'] === '3'): ?>
-          <!-- User menu -->
           <?php include_once('user_menu.php'); ?>
+        <?php elseif ($user['user_level'] === '4'): ?>
+          <?php include_once('supplier_menu.php'); ?>
 
         <?php endif; ?>
 

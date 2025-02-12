@@ -23,9 +23,34 @@ if (isset($_POST['add_user'])) {
         $password = remove_junk($db->escape($_POST['password']));
         $user_level = (int)$db->escape($_POST['level']);
         $password = sha1($password);
+        
+        // Set current timestamp for last_login
+        $current_time = date('Y-m-d H:i:s');
 
-        $query = "INSERT INTO users (name, username, password, user_level, status) ";
-        $query .= "VALUES ('{$name}', '{$username}', '{$password}', '{$user_level}', '1')";
+        $query = "INSERT INTO users (";
+        $query .= "name, username, password, user_level, status, last_login, role";
+        $query .= ") VALUES (";
+        $query .= "'{$name}', '{$username}', '{$password}', '{$user_level}', '1', '{$current_time}', ";
+        
+        // Set role based on user_level
+        switch($user_level) {
+            case 1:
+                $query .= "'Admin'";
+                break;
+            case 2:
+                $query .= "'Special'";
+                break;
+            case 3:
+                $query .= "'User'";
+                break;
+            case 4:
+                $query .= "'Supplier'";
+                break;
+            default:
+                $query .= "'User'";
+        }
+        
+        $query .= ")";
 
         if ($db->query($query)) {
             // Success

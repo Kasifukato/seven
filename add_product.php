@@ -25,16 +25,52 @@ if (isset($_POST['add_product'])) {
         $p_qty   = remove_junk($db->escape($_POST['product-quantity']));
         $p_buy   = remove_junk($db->escape($_POST['buying-price']));
         $p_sale  = remove_junk($db->escape($_POST['saleing-price']));
-        $p_barcode = remove_junk($db->escape($_POST['product-barcode'])); // Handle Barcode
+        $p_barcode = remove_junk($db->escape($_POST['product-barcode']));
         $media_id = isset($_POST['product-photo']) && !empty($_POST['product-photo']) ? remove_junk($db->escape($_POST['product-photo'])) : 0;
         $date    = make_date();
+
+        // Validate quantity is not negative
+        if ($p_qty <= 0) {
+            $session->msg('d', 'Quantity must be greater than zero.');
+            redirect('add_product.php', false);
+            exit;
+        }
+
+        // Validate barcode format (8-12 digits only)
+        if (!empty($p_barcode)) {  // Only validate if barcode is provided
+            if (!preg_match('/^\d{8,12}$/', $p_barcode)) {
+                $session->msg('d', 'Barcode must be between 8 and 12 digits and contain only numbers.');
+                redirect('add_product.php', false);
+                exit;
+            }
+        }
+
+        // Check if buying price is less than selling price
+        if (floatval($p_buy) >= floatval($p_sale)) {
+            $session->msg('d', 'Buying price must be less than selling price.');
+            redirect('add_product.php', false);
+            exit;
+        }
+
+        // For products with existing barcode, check if update would result in negative quantity
+        if (!empty($p_barcode)) {
+            $current_product = find_by_sql("SELECT quantity FROM products WHERE barcode = '{$p_barcode}' LIMIT 1");
+            if (!empty($current_product)) {
+                $current_qty = $current_product[0]['quantity'];
+                if (($current_qty + $p_qty) < 0) {
+                    $session->msg('d', 'Cannot reduce quantity below zero. Current stock: ' . $current_qty);
+                    redirect('add_product.php', false);
+                    exit;
+                }
+            }
+        }
 
         // SQL Query to insert or update product
         $query = "INSERT INTO products (name, barcode, quantity, buy_price, sale_price, categorie_id, media_id, date) 
                   VALUES ('{$p_name}', '{$p_barcode}', '{$p_qty}', '{$p_buy}', '{$p_sale}', '{$p_cat}', '{$media_id}', '{$date}')
                   ON DUPLICATE KEY UPDATE 
                       name='{$p_name}', 
-                      quantity = quantity + {$p_qty},  -- Update quantity by adding the new value
+                      quantity = GREATEST(0, quantity + {$p_qty}),  -- Ensure quantity never goes below 0
                       buy_price='{$p_buy}',
                       sale_price='{$p_sale}',
                       categorie_id='{$p_cat}',
@@ -100,9 +136,14 @@ if (isset($_POST['add_product'])) {
                     <div class="row">
                         <div class="col xs-12 sm-3">
                             <div class="form__module">
-                                <label for="brcode" class="form__label">Barcode</label>
+                                <label for="brcode" class="form__label">Barcode (8-12 digits)</label>
                                 <div class="form__set">
-                                    <input type="text" id="brcode" name="product-barcode" placeholder="12345" />
+                                    <input type="text" 
+                                           id="brcode" 
+                                           name="product-barcode" 
+                                           placeholder="12345678" 
+                                           pattern="\d{8,12}" 
+                                           title="Barcode must be between 8 and 12 digits"/>
                                 </div>
                             </div>
                         </div>
@@ -174,7 +215,8 @@ if (isset($_POST['add_product'])) {
                                     type="number"
                                     name="product-quantity"
                                     placeholder="Product Quantity"
-                                    id="prodqty" />
+                                    id="prodqty"
+                                    min="1" />
                                 </div>
                             </div>
                         </div>
