@@ -59,7 +59,7 @@ $recent_orders_query = "
 $recent_orders_result = $db->query($recent_orders_query);
 
 $page_title = 'Supplier Dashboard';
-include_once('layouts/header.php'); 
+include_once('layouts/nheader.php'); 
 ?>
 
 <div class="adm-dashboard__main">
@@ -177,11 +177,7 @@ function updateDashboard() {
                                 day: 'numeric',
                                 year: 'numeric'
                             })}</td>
-                            <td>
-                                <div class="btn-group">
-                                    ${actionButton}
-                                </div>
-                            </td>
+                            
                         </tr>
                     `;
                 });
